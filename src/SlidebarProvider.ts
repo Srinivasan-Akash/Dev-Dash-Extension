@@ -23,9 +23,13 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
     const staticFolderPath = path.join(this._extensionUri.fsPath, "static");
     const indexPath = path.join(staticFolderPath, "index.html");
     const stylesPath = path.join(staticFolderPath, "styles.css");
+    const scriptsPath = path.join(staticFolderPath, "index.js");
 
-    const cssCode = fs.readFileSync(stylesPath, 'utf8')
+    const cssCode = fs.readFileSync(stylesPath, 'utf8');
     const htmlCode = fs.readFileSync(indexPath, "utf8");
-    return htmlCode + `<style> ${cssCode} </style>`;
+    const scriptsUri = webview.asWebviewUri(vscode.Uri.file(scriptsPath));
+
+    console.log(htmlCode + `<style> ${cssCode} </style>` + `<script src="${scriptsUri}">  </script`);
+    return htmlCode + `<style> ${cssCode} </style>` + `<script src="${scriptsUri}"> </script`;
   }
 }
