@@ -1,5 +1,5 @@
 import * as vscode from "vscode"
-import { SidebarProvider } from "./SlidebarProvider";
+import { SidebarProvider } from "./SlidebarProvider"; 
 
 /**
  * @param {vscode.ExtensionContext} context
