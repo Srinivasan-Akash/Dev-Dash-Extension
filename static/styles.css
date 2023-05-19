@@ -5,8 +5,8 @@
   margin: 0;
   box-sizing: border-box;
   color: #C5C3C8;
-  overflow: hidden;
   transition: all .8s ease;
+  overflow-x: hidden;
 }
 
 
@@ -64,14 +64,14 @@ p {
 
 .red {
     background: #F4426D;
-    position: absolute;
+    position: fixed;
     bottom: 0;
     left: 0;
 }
 
 .blue {
     background: #4285F4;
-    position: absolute;
+    position: fixed;
     top: 0;
     right: 0;
 }
@@ -84,9 +84,11 @@ p {
   scale: 0;
   position: absolute;
   top: 0;
+  overflow: visible;
   left: 0;
 }
 
+/* Start Of Nav */
 nav {
   display: flex;
   align-items: center;
@@ -105,6 +107,8 @@ nav div {
 .log-out {
   cursor: pointer;
 }
+
+/* Start Of Motivational Quote */
 .motivation {
   width: 90%;
   border-radius: 10px;
@@ -116,6 +120,7 @@ nav div {
   backdrop-filter: blur(8px);
   position: relative;
   max-width: 500px;
+  border: 2px solid #233C5F;
 }
 
 .motivation::before {
@@ -135,6 +140,7 @@ nav div {
   text-align: left;
   position: absolute;
   top: 22%;
+  width: 98%;
   left: 8.5%;
 }
 
@@ -148,4 +154,69 @@ nav div {
   right: 8.5%;
 }
 
+/* Start Of Info */
+.info-world {
+  width: 90%;
+  margin: auto;
+  height: 25vh;
+  margin-top: 1em;
+  position: relative;
+  max-width: 500px;
+  display: flex;
+  align-items: center;
+}
+
+.weather, .internet {
+  background-color: rgba(22, 28, 32, 0.826); /* Adjust the opacity as needed */
+  backdrop-filter: blur(8px);
+  width: 50%;
+  height: 100%;
+  margin-right: 1em;
+  border-radius: 10px;
+  padding: 1em;
+}
+
+.internet {
+  margin-right: 0;
+}
+
+/* Start Of Utils */
+.util {
+  width: 90%;
+  margin: auto;
+  overflow: hidden;
+  height: 5vh;
+  margin-top: 1em;
+  position: relative;
+  max-width: 500px;
+  background-color: rgba(22, 28, 32, 0.826);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5em;
+  border-radius: 5px;
+}
+
+.util:hover {
+  background-color: rgb(17, 19, 20);
+  cursor: pointer;
+}
+
+.utils {
+  padding-bottom: 2em;
+}
+
+/* Styles For Scroll Bar */
+::-webkit-scrollbar {
+  width: 5px; 
+}
+
+::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #888; 
+  border-radius: 10px;
+}
 /* ENd Of Dash Board Screen */

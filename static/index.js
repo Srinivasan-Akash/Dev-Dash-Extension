@@ -31,13 +31,16 @@ SIGN_OUT_BUTTON.addEventListener("click", () => {
   // TODO: LOG OUT Logic Goes Here....
 });
 
-// API's
-fetch("https://type.fit/api/quotes")
-  .then(function (response) {
-    return response.json();
-  })
-  .then(function (data) {
-    let randomQuote = data[Math.floor(Math.random() * data.length)];
-    MOTIVATIONAL_QUOTE.innerText = randomQuote.text;
-    MOTIVATONAL_QUOTE_FOUNDER.innerText = `~${randomQuote.author === null? "unknown": randomQuote.author}`;
+// Functionality
+getJoke();
+
+// API Functions
+function getJoke() {
+  fetch("https://type.fit/api/quotes")
+    .then((response) => response.json())
+    .then((data) => {
+      let randomQuote = data[Math.floor(Math.random() * data.length)];
+      MOTIVATIONAL_QUOTE.innerText = randomQuote.text;
+      MOTIVATONAL_QUOTE_FOUNDER.innerText = `~${randomQuote.author === null ? "unknown" : randomQuote.author}`;
   });
+}
