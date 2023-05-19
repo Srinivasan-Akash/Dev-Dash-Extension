@@ -9,6 +9,7 @@
   transition: all .8s ease;
 }
 
+
 /* Start Of Sign In Screen */
 .logo {
   margin-bottom: 1em;
@@ -104,24 +105,25 @@ nav div {
 .log-out {
   cursor: pointer;
 }
-
 .motivation {
   width: 90%;
   border-radius: 10px;
   margin: auto;
   padding: 1em;
-  height: 22vh;
+  height: 25vh;
   margin-top: 1em;
   background-color: rgba(22, 28, 32, 0.826); /* Adjust the opacity as needed */
   backdrop-filter: blur(8px);
   position: relative;
+  max-width: 500px;
 }
 
-.quotation {
+.motivation::before {
+  content: '"';
   font-size: 70px;
   opacity: 0.34;
   position: absolute;
-  top: 2%;
+  top: 8%;
   left: 4%;
   font-family: 'IM Fell Double Pica SC';
 }
@@ -145,4 +147,5 @@ nav div {
   bottom: 12%;
   right: 8.5%;
 }
+
 /* ENd Of Dash Board Screen */
