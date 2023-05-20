@@ -9,6 +9,19 @@
   overflow-x: hidden;
 }
 
+/* Styles For Scroll Bar */
+::-webkit-scrollbar {
+  width: 5px; 
+}
+
+::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #888; 
+  border-radius: 10px;
+}
 
 /* Start Of Sign In Screen */
 .logo {
@@ -140,7 +153,7 @@ nav div {
   text-align: left;
   position: absolute;
   top: 22%;
-  width: 98%;
+  width: 90%;
   left: 8.5%;
 }
 
@@ -202,21 +215,171 @@ nav div {
   cursor: pointer;
 }
 
-.utils {
-  padding-bottom: 2em;
-}
-
-/* Styles For Scroll Bar */
-::-webkit-scrollbar {
-  width: 5px; 
-}
-
-::-webkit-scrollbar-track {
-  background-color: transparent;
-}
-
-::-webkit-scrollbar-thumb {
-  background-color: #888; 
+.share-feature {
+  width: 90%;
   border-radius: 10px;
+  margin: auto;
+  padding: 1em;
+  height: fit-content;
+  margin-top: 1em;
+  background-color: rgba(22, 28, 32, 0.826); /* Adjust the opacity as needed */
+  backdrop-filter: blur(8px);
+  position: relative;
+  max-width: 500px;
+  border: 2px solid #233C5F;
 }
+
+.share-feature h3 {
+  line-height: 1.25;
+  font-weight: lighter;
+}
+
+.details {
+  margin-top: .5em;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  column-gap: .5em;
+}
+
+input {
+  width: 100%;
+  background: #2A3033;
+  border: 1px solid #233C5F;
+  padding: .5em 1em;
+  border-radius: 5px;
+  z-index: 2;
+}
+
+.share-feature textarea {
+  resize: none;
+  margin-top: .5em;
+  width: 100%;
+  height: 15vh;
+  background: #2A3033;
+  border: 1px solid #233C5F;
+  border-radius: 5px;
+  padding: .5em 1em;
+  font-family: sans-serif;
+}
+
+.share-feature button {
+  padding: .8em;
+  cursor: pointer;
+  margin-top: .25em;
+  width: 100%;
+  border: 1px solid #233C5F;
+  border-radius: 5px;
+  background-color: #C5C3C8;
+  color: #2A3033;
+}
+
+/* CLouds */
+@keyframes clouds-loop-1 {
+  to {
+    background-position: -1000px 0;
+  }
+}
+.clouds-1 {
+  background-image: url("https://cdn.discordapp.com/attachments/1078049970097238098/1109082839674257478/18.05.2023_12.17_1.png");
+  animation: clouds-loop-1 20s infinite linear;
+}
+
+@keyframes clouds-loop-2 {
+  to {
+    background-position: -1000px 0;
+  }
+}
+.clouds-2 {
+  background-image: url("https://cdn.discordapp.com/attachments/1078049970097238098/1109082839674257478/18.05.2023_12.17_1.png");
+  animation: clouds-loop-2 15s infinite linear;
+}
+
+@keyframes clouds-loop-3 {
+  to {
+    background-position: -1579px 0;
+  }
+}
+.clouds-3 {
+  background-image: url("https://cdn.discordapp.com/attachments/1078049970097238098/1109082839674257478/18.05.2023_12.17_1.png");
+  animation: clouds-loop-3 17s infinite linear;
+}
+
+
+.clouds {
+  opacity: 0.4;
+  pointer-events: none;
+  width: 100%;
+  height: 30vh;
+  overflow: hidden;
+  position: relative;
+}
+
+.clouds-1,
+.clouds-2,
+.clouds-3 {
+  background-repeat: repeat-x;
+  background-size: cover;
+  position: absolute;
+  bottom: 0;
+  height: 150px;
+  right: 0;
+  left: 0;
+}
+
 /* ENd Of Dash Board Screen */
+
+/* Start Of Get Website Info */
+.WebsiteInfo {
+  scale: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding: 1em;
+  flex-direction: column;
+}
+
+.title {
+  width: fit-content;
+  border-radius: 10px;
+  padding: 1em;
+  height: fit-content;
+  margin-left: 5%;
+  display: flex;
+  gap: 1em;
+  align-items: center;
+  background-color: rgba(22, 28, 32, 0.826); 
+  backdrop-filter: blur(8px);
+  position: relative;
+  border: 2px solid #233C5F;
+}
+
+.back-btn {
+  cursor: pointer;
+}
+
+.website-url-input {
+  margin-top: .5em;
+  margin-bottom: .5em;
+  padding: .8em;
+}
+
+.WebsiteInfo .form {
+  position: relative;
+  height: fit-content;
+  margin-top: .5em;
+}
+
+.WebsiteInfo .form button {
+  position: absolute;
+  right: 0;
+  top: 5%;
+  bottom: 0;
+  width: 30%;
+  height: 75%;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
