@@ -1,6 +1,7 @@
 import * as vscode from "vscode";
 import { SidebarProvider } from "./SlidebarProvider";
-
+import * as fs from "fs";
+import * as path from "path";
 /**
  * @param {vscode.ExtensionContext} context
  */
@@ -9,14 +10,13 @@ export function activate(context: any) {
   const sidebarProvider = new SidebarProvider(context.extensionUri);
   // Start Of Change Workspace Color
   context.subscriptions.push(
-    vscode.commands.registerCommand("devDash.randomColor", () => {
+    vscode.commands.registerCommand('devDash.randomColor', () => {
       const colors = ["#6cc24a", "#ff6347", "#3498db", "#f39c12", "#9b59b6", "#2ecc71", "#e74c3c", "#1abc9c", "#f1c40f", "#8e44ad", "#27ae60", "#d35400", "#2980b9", "#e67e22", "#c0392b", "#16a085", "#f39c12", "#7f8c8d", "#95a5a6", "#bdc3c7"];
+      const randomIndex = Math.floor(Math.random() * colors.length);
+      const randomColor = colors[randomIndex];
 
-      const randomColor = colors[Math.floor(Math.random() * colors.length)];
-
-      vscode.workspace.getConfiguration().update(
-        "workbench.colorCustomizations",
-        {
+      const settings = {
+        "workbench.colorCustomizations": {
           "activityBar.background": randomColor,
           "activityBar.foreground": "#ffffff",
           "titleBar.activeBackground": randomColor,
@@ -25,27 +25,45 @@ export function activate(context: any) {
           "titleBar.inactiveForeground": "#ffffff",
           "statusBar.background": randomColor,
           "statusBar.foreground": "#ffffff"
-        },
-        vscode.ConfigurationTarget.Workspace
-      );
+        }
+      };
 
+      const vscodeFolderPath = vscode.workspace.rootPath ? path.join(vscode.workspace.rootPath, ".vscode") : "";
+      if (!fs.existsSync(vscodeFolderPath)) {
+        fs.mkdirSync(vscodeFolderPath);
+      }
+
+      const settingsPath = path.join(vscodeFolderPath, "settings.json");
+      fs.writeFileSync(settingsPath, JSON.stringify(settings, null, 4));
+
+      vscode.commands.executeCommand("workbench.action.reloadWindow");
       vscode.window.showInformationMessage("Changed Workspace Color to " + randomColor);
     })
   );
 
   context.subscriptions.push(vscode.commands.registerCommand('devDash.resetColor', () => {
-    vscode.workspace.getConfiguration().update('workbench.colorCustomizations', {}, vscode.ConfigurationTarget.Workspace);
-    vscode.window.showInformationMessage("Reseted Color");
+    const settings = {
+      "workbench.colorCustomizations": {}
+    };
+
+    const vscodeFolderPath = vscode.workspace.rootPath ? path.join(vscode.workspace.rootPath, ".vscode") : "";
+    if (!fs.existsSync(vscodeFolderPath)) {
+      fs.mkdirSync(vscodeFolderPath);
+    }
+
+    const settingsPath = path.join(vscodeFolderPath, "settings.json");
+    fs.writeFileSync(settingsPath, JSON.stringify(settings, null, 4));
+
+    vscode.commands.executeCommand("workbench.action.reloadWindow");
+    vscode.window.showInformationMessage("Reset Workspace Color");
   }));
 
-  const changeColorButton = vscode.window.createStatusBarItem(
-    vscode.StatusBarAlignment.Right
-  );
-
+  const changeColorButton = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Right);
   changeColorButton.text = "$(paintcan) Change Workspace Color";
   changeColorButton.command = "devDash.randomColor";
   changeColorButton.tooltip = "Change the workspace color to Node.js green";
   changeColorButton.show();
+  context.subscriptions.push(changeColorButton);
 
   // Start Of Side Bar
   context.subscriptions.push(
@@ -56,4 +74,4 @@ export function activate(context: any) {
   );
 }
 
-export function deactivate() {}
+export function deactivate() { }

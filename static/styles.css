@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=IM+Fell+Double+Pica+SC&display=swap');
+
 /* Universal STyles */
 * {
   padding: 0;
@@ -11,7 +12,7 @@
 
 /* Styles For Scroll Bar */
 ::-webkit-scrollbar {
-  width: 5px; 
+  width: 5px;
 }
 
 ::-webkit-scrollbar-track {
@@ -19,7 +20,7 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: #888; 
+  background-color: #888;
   border-radius: 10px;
 }
 
@@ -60,7 +61,7 @@ p {
 .google-logo {
   width: 20px;
   height: 20px;
-  margin-right: 8px; 
+  margin-right: 8px;
 }
 
 .button-text {
@@ -68,25 +69,26 @@ p {
   margin-left: 1em;
 }
 
-.blue, .red {
-    width: 125px;
-    height: 125px;
-    filter: blur(100px);
-    transition: all .5s ease;
+.blue,
+.red {
+  width: 125px;
+  height: 125px;
+  filter: blur(100px);
+  transition: all .5s ease;
 }
 
 .red {
-    background: #F4426D;
-    position: fixed;
-    bottom: 0;
-    left: 0;
+  background: #F4426D;
+  position: fixed;
+  bottom: 0;
+  left: 0;
 }
 
 .blue {
-    background: #4285F4;
-    position: fixed;
-    top: 0;
-    right: 0;
+  background: #4285F4;
+  position: fixed;
+  top: 0;
+  right: 0;
 }
 
 /* End Of Sign In Screen */
@@ -129,7 +131,8 @@ nav div {
   padding: 1em;
   height: 25vh;
   margin-top: 1em;
-  background-color: rgba(22, 28, 32, 0.826); /* Adjust the opacity as needed */
+  background-color: rgba(22, 28, 32, 0.826);
+  /* Adjust the opacity as needed */
   backdrop-filter: blur(8px);
   position: relative;
   max-width: 500px;
@@ -179,8 +182,10 @@ nav div {
   align-items: center;
 }
 
-.weather, .internet {
-  background-color: rgba(22, 28, 32, 0.826); /* Adjust the opacity as needed */
+.weather,
+.internet {
+  background-color: rgba(22, 28, 32, 0.826);
+  /* Adjust the opacity as needed */
   backdrop-filter: blur(8px);
   width: 50%;
   height: 100%;
@@ -236,7 +241,8 @@ nav div {
   padding: 1em;
   height: fit-content;
   margin-top: 1em;
-  background-color: rgba(22, 28, 32, 0.826); /* Adjust the opacity as needed */
+  background-color: rgba(22, 28, 32, 0.826);
+  /* Adjust the opacity as needed */
   backdrop-filter: blur(8px);
   position: relative;
   max-width: 500px;
@@ -295,6 +301,7 @@ input {
     background-position: -1000px 0;
   }
 }
+
 .clouds-1 {
   background-image: url("https://cdn.discordapp.com/attachments/1078049970097238098/1109082839674257478/18.05.2023_12.17_1.png");
   animation: clouds-loop-1 20s infinite linear;
@@ -305,6 +312,7 @@ input {
     background-position: -1000px 0;
   }
 }
+
 .clouds-2 {
   background-image: url("https://cdn.discordapp.com/attachments/1078049970097238098/1109082839674257478/18.05.2023_12.17_1.png");
   animation: clouds-loop-2 15s infinite linear;
@@ -315,6 +323,7 @@ input {
     background-position: -1579px 0;
   }
 }
+
 .clouds-3 {
   background-image: url("https://cdn.discordapp.com/attachments/1078049970097238098/1109082839674257478/18.05.2023_12.17_1.png");
   animation: clouds-loop-3 17s infinite linear;
@@ -365,7 +374,7 @@ input {
   display: flex;
   gap: 1em;
   align-items: center;
-  background-color: rgba(22, 28, 32, 0.826); 
+  background-color: rgba(22, 28, 32, 0.826);
   backdrop-filter: blur(8px);
   position: relative;
   border: 2px solid #233C5F;
@@ -396,6 +405,32 @@ input {
   height: 75%;
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
+}
+
+.WebsiteInfo .result {
+  background: linear-gradient(180deg, #151B1D 0%, #304665 100%);
+  box-shadow: inset 0px 4px 4px #243C5F;
+  border-radius: 30px 30px 0px 0px;
+  width: 90%;
+  height: 100%;
+  margin: auto;
+  margin-top: 1em;
+}
+
+.companyInfo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.companyInfo .right, .companyInfo .left, .companyInfo img {
+  width: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background: green;
+  height: 100%;
 }
 
 /* Start Of Mini Tools */
