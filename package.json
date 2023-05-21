@@ -12,6 +12,18 @@
   "activationEvents": [],
   "main": "./out/extension.js",
   "contributes": {
+    "commands": [
+      {
+        "command": "devDash.randomColor",
+        "title": "Change Workspace To Random Color",
+        "category": "Dev Dash"
+      },
+      {
+        "command": "devDash.resetColor",
+        "title": "Reset Colors Of Work Space",
+        "category": "Dev Dash"
+      }
+    ],
     "viewsContainers": {
       "activitybar": [
         {
