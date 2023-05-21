@@ -412,27 +412,84 @@ input {
   box-shadow: inset 0px 4px 4px #243C5F;
   border-radius: 30px 30px 0px 0px;
   width: 90%;
-  height: 100%;
+  height: fit-content;
   margin: auto;
   margin-top: 1em;
+  max-width: 500px;
+  padding-bottom: 1em;
 }
 
 .companyInfo {
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 100%;
 }
 
 .companyInfo .right, .companyInfo .left, .companyInfo img {
-  width: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  background: green;
   height: 100%;
 }
 
+.companyInfo .right {
+  width: 75%;
+  padding: 1em;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.companyInfo .right h2 {
+  line-height: 1;
+  padding: .1em;
+  font-size: 1.2em;
+  overflow: hidden;
+  background: transparent;
+}
+
+.techstack .title {
+  font-size: 1em;
+  font-weight: 500;
+  padding: .5em .5em .5em 1em;
+  width: 100px;
+  border: none;
+}
+
+.companyInfo .right p {
+  padding: .1em;
+}
+
+.companyInfo img {
+  width: 100%;
+}
+
+.companyInfo .left {
+  width: 25%;
+  padding: 1em 0 1em 1em;
+}
+
+.techstack {
+  margin-top: 1em;
+}
+
+.techstack ul {
+  margin-left: 2em;
+}
+
+.techstack ul li {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-top: .5em;
+  gap: .5em;
+}
+
+.techstack-show {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
 /* Start Of Mini Tools */
 .mini-tools {
   width: 100%;
@@ -468,3 +525,4 @@ input {
   gap: 1em;
   flex-wrap: wrap;
 }
+
