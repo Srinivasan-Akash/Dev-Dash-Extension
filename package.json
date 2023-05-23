@@ -12,6 +12,15 @@
   "activationEvents": [],
   "main": "./out/extension.js",
   "contributes": {
+    "menus": {
+      "editor/context": [
+        {
+          "command": "devDash.minify",
+          "group": "1_modification",
+          "when": "editorHasSelection"
+        }
+      ]
+    },
     "commands": [
       {
         "command": "devDash.randomColor",
@@ -21,6 +30,11 @@
       {
         "command": "devDash.resetColor",
         "title": "Reset Colors Of Work Space",
+        "category": "Dev Dash"
+      },
+      {
+        "command": "devDash.minify",
+        "title": "Minify Code From Dev Dash",
         "category": "Dev Dash"
       }
     ],

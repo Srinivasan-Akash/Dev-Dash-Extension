@@ -1,13 +1,37 @@
-import * as vscode from "vscode";
-import { SidebarProvider } from "./SlidebarProvider";
 import * as fs from "fs";
 import * as path from "path";
+import * as vscode from "vscode";
+import { SidebarProvider } from "./SlidebarProvider";
 /**
  * @param {vscode.ExtensionContext} context
 */
 
 export function activate(context: any) {
   const sidebarProvider = new SidebarProvider(context.extensionUri);
+
+  // Start Of Minify Code BTN
+  context.subscriptions.push(
+    vscode.commands.registerCommand('devDash.minify', () => {
+      const editor = vscode.window.activeTextEditor;
+      if (editor) {
+        const selection = editor.selection;
+        const text = editor.document.getText(selection);
+
+        // Minify the code by removing extra spaces
+        const minifiedCode = text.replace(/\s+/g, ' ');
+
+        // Replace the selected code with the minified code
+        editor.edit((editBuilder) => {
+          editBuilder.replace(selection, minifiedCode);
+        });
+      }
+    })
+  );
+
+  // Start Of Format Code BTN
+  
+
+
   // Start Of Change Workspace Color
   context.subscriptions.push(
     vscode.commands.registerCommand('devDash.randomColor', () => {
@@ -29,10 +53,7 @@ export function activate(context: any) {
       };
 
       const vscodeFolderPath = vscode.workspace.rootPath ? path.join(vscode.workspace.rootPath, ".vscode") : "";
-      if (!fs.existsSync(vscodeFolderPath)) {
-        fs.mkdirSync(vscodeFolderPath);
-      }
-
+      if (!fs.existsSync(vscodeFolderPath)) {fs.mkdirSync(vscodeFolderPath);}
       const settingsPath = path.join(vscodeFolderPath, "settings.json");
       fs.writeFileSync(settingsPath, JSON.stringify(settings, null, 4));
 
@@ -67,10 +88,7 @@ export function activate(context: any) {
 
   // Start Of Side Bar
   context.subscriptions.push(
-    vscode.window.registerWebviewViewProvider(
-      "devDash-sidebar",
-      sidebarProvider
-    )
+    vscode.window.registerWebviewViewProvider("devDash-sidebar", sidebarProvider)
   );
 }
 
