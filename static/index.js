@@ -42,7 +42,7 @@ SIGN_OUT_BUTTON.addEventListener("click", () => {
 
 // MAIL
 EMAIL_SUBMIT_BUTTON.addEventListener('click', () => {
-  vscode.window.showInformationMessage('Message Sent Sucessfully !!');
+  alert('Message Sent Successfully!!');
 
   const [name, email, feature] = [NAME_INPUT.value, EMAIL_INPUT.value, FEATURE_INPUT.value];
   const templateParams = {
@@ -56,9 +56,11 @@ EMAIL_SUBMIT_BUTTON.addEventListener('click', () => {
       NAME_INPUT.value = "";
       EMAIL_INPUT.value = "";
       FEATURE_INPUT.value = "";
-      EMAIL_SUBMIT_BUTTON.style.background = "green";
+      EMAIL_SUBMIT_BUTTON.innerText = "Message Sent !!";
+      setTimeout(() => EMAIL_SUBMIT_BUTTON.innerText = "Submit Form");
     }, function(error) {
-      EMAIL_SUBMIT_BUTTON.style.background = "red";
+      EMAIL_SUBMIT_BUTTON.innerText = "Operation Failed !!";
+      setTimeout(() => EMAIL_SUBMIT_BUTTON.innerText = "Submit Form");
     });
 });
 

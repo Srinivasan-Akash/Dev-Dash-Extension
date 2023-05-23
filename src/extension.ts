@@ -4,7 +4,7 @@ import * as fs from "fs";
 import * as path from "path";
 /**
  * @param {vscode.ExtensionContext} context
- */
+*/
 
 export function activate(context: any) {
   const sidebarProvider = new SidebarProvider(context.extensionUri);
@@ -61,7 +61,7 @@ export function activate(context: any) {
   const changeColorButton = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Right);
   changeColorButton.text = "$(paintcan) Change Workspace Color";
   changeColorButton.command = "devDash.randomColor";
-  changeColorButton.tooltip = "Change the workspace color to Node.js green";
+  changeColorButton.tooltip = "Change To random Color";
   changeColorButton.show();
   context.subscriptions.push(changeColorButton);
 
