@@ -8,7 +8,7 @@ SUBMIT_BUTTON.addEventListener('click', () => {
 
   let multimediaUrls = [];
 
-  fetch(`http://localhost:3000/getTechStack?url=${encodeURIComponent(websiteUrl)}`)
+  fetch(`https://dev-dash-extension-backend-indratejreddy.vercel.app/?url=${encodeURIComponent(websiteUrl)}`)
     .then(res => res.json())
     .then(data => {
       const techStacks = data.data.results;
@@ -36,7 +36,7 @@ SUBMIT_BUTTON.addEventListener('click', () => {
       }
 
       // Fetch font families and multimedia URLs from the same API endpoint
-      fetch(`http://localhost:3000/getMultiMedia?url=${encodeURIComponent(websiteUrl)}`)
+      fetch(`https://dev-dash-extension-backend-indratejreddy.vercel.app/?url=${encodeURIComponent(websiteUrl)}`)
         .then(res => res.json())
         .then(data => {
           const fontFamilies = data.fontFamilyNames;

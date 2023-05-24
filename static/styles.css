@@ -501,7 +501,7 @@ input {
   left: 0;
 }
 
-.mini-tools .title {
+.mini-tools .title, .github-view .title {
   margin: 0;
 }
 
@@ -526,3 +526,13 @@ input {
   flex-wrap: wrap;
 }
 
+/* Start Of Github View */
+.github-view {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  scale: 0;
+  padding: 1em;
+}
