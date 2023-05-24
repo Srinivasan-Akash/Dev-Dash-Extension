@@ -501,7 +501,7 @@ input {
   left: 0;
 }
 
-.mini-tools .title, .github-view .title {
+.mini-tools .title, .github-view .title, .capture-window .title {
   margin: 0;
 }
 
@@ -535,4 +535,106 @@ input {
   left: 0;
   scale: 0;
   padding: 1em;
+}
+
+/* Start Of Capture Window */
+.capture-window {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  scale: 0;
+  padding: 1em;
+}
+
+.capture-window .title {
+  margin: auto;
+  width: 90%;
+}
+
+.image {
+  width: 90%;
+  max-width: 500px;
+  border: 2px dashed #233C5F;
+  display: flex;
+  position: relative;
+  align-items: center;
+  justify-content: center;
+  height: 20em;
+  margin: auto;
+  margin-top: 1em;
+  overflow: scroll;
+  border-radius: 10px;
+}
+
+.themesAndLanguage {
+  width: 90%;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 1em;
+} 
+
+.themesAndLanguage #theme, .themesAndLanguage #language {
+  width: 49%;
+  background: #233C5F;
+  color: #C5C3C8;
+  border-radius: 5px;
+  padding: .5em 1em;
+}
+
+.paddingAndColor {
+  width: 90%;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: .5em;
+  flex-wrap: wrap;
+}
+
+.paddingAndColor button {
+  margin-top: .5em;
+  width: 100%;
+  padding: 1em;
+  border: none;
+  color: #000;
+  border-radius: 5px;
+}
+
+.paddingAndColor input , #BackgroundImage, .paddingAndColor textarea {
+  width: 49%;
+  background: #233C5F;
+  color: #C5C3C8;
+  border-radius: 5px;
+  padding: .5em 1em;
+}
+
+.paddingAndColor textarea {
+  height: 10em;
+  width: 100%;
+  resize: none;
+  margin-top: .5em;
+}
+
+#BackgroundImage {
+  width: 100%;
+  margin-top: .5em;
+}
+
+
+.image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  scale: 0;
+}
+
+.image p {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }

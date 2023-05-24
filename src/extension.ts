@@ -28,9 +28,9 @@ export function activate(context: any) {
     })
   );
 
-  // Start Of Format Code BTN
+  // Start Of Code Snippet Creator
   
-
+  
 
   // Start Of Change Workspace Color
   context.subscriptions.push(

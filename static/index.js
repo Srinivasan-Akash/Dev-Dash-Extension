@@ -8,6 +8,8 @@ const GO_BACK_FROM_MINI_TOOLS = document.querySelector(".goBack-miniTools");
 const MINI_TOOLS_BUTTON = document.querySelector(".tools");
 const GITHUB_VIEW_BUTTON = document.querySelector(".github-view-btn");
 const GO_BACK_FROM_GITHUB_VIEW = document.querySelector(".goBack-gitubView");
+const GO_BACK_FROM_CAPTURE = document.querySelector(".goBack-capture-window");
+const CAPTURE_BTN = document.querySelector(".capture");
 
 // Email Form elements
 const EMAIL_SUBMIT_BUTTON = document.querySelector(".share-feature button");
@@ -22,6 +24,7 @@ const DASHBOARD_SCREEN = document.querySelector(".dashboard");
 const WEBSITE_INFO = document.querySelector(".WebsiteInfo");
 const MINI_TOOLS = document.querySelector(".mini-tools");
 const GITHUB_VIEW = document.querySelector(".github-view");
+const CAPTURE_WINDOW = document.querySelector(".capture-window");
 
 // Props
 const RED_NEON_BLOB = document.querySelector(".red");
@@ -94,6 +97,21 @@ GO_BACK_FROM_MINI_TOOLS.addEventListener('click', () => {
   RED_NEON_BLOB.style.left = "50%";
   BLUE_NEON_BLOB.style.right = "50%";
   MINI_TOOLS.style.scale = "0";
+  DASHBOARD_SCREEN.style.scale = "1";
+});
+
+// From & To (Capture To Dashboard)
+CAPTURE_BTN.addEventListener('click', () => {
+  RED_NEON_BLOB.style.left = "0%";
+  BLUE_NEON_BLOB.style.right = "0%";
+  DASHBOARD_SCREEN.style.scale = "0";
+  CAPTURE_WINDOW.style.scale = "1";
+});
+
+GO_BACK_FROM_CAPTURE.addEventListener('click', () => {
+  RED_NEON_BLOB.style.left = "50%";
+  BLUE_NEON_BLOB.style.right = "50%";
+  CAPTURE_WINDOW.style.scale = "0";
   DASHBOARD_SCREEN.style.scale = "1";
 });
 
