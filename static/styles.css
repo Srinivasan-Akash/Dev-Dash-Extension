@@ -506,8 +506,9 @@ input {
 }
 
 .mini-tools .grid .box {
-  width: 250px;
-  aspect-ratio: 1/1;
+  width: 100%;
+  max-width: 500px;
+  aspect-ratio: 2/1;
   background-color: rgba(22, 28, 32, 0.826);
   display: flex;
   align-items: center;
@@ -524,6 +525,11 @@ input {
   justify-content: flex-start;
   gap: 1em;
   flex-wrap: wrap;
+}
+
+.box div {
+  width: 40%;
+  min-width: 200px
 }
 
 /* Start Of Github View */
