@@ -63,10 +63,10 @@ EMAIL_SUBMIT_BUTTON.addEventListener('click', () => {
       EMAIL_INPUT.value = "";
       FEATURE_INPUT.value = "";
       EMAIL_SUBMIT_BUTTON.innerText = "Message Sent !!";
-      setTimeout(() => EMAIL_SUBMIT_BUTTON.innerText = "Submit Form");
+      setTimeout(() => EMAIL_SUBMIT_BUTTON.innerText = "Submit Form", 2000);
     }, function(error) {
       EMAIL_SUBMIT_BUTTON.innerText = "Operation Failed !!";
-      setTimeout(() => EMAIL_SUBMIT_BUTTON.innerText = "Submit Form");
+      setTimeout(() => EMAIL_SUBMIT_BUTTON.innerText = "Submit Form", 2000);
     });
 });
 

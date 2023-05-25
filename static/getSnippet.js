@@ -12,9 +12,11 @@ const showLineNumbers = true;
 let link = null;
 
 // Appwrite Init
+// eslint-disable-next-line @typescript-eslint/naming-convention
 const { Client, Storage } = Appwrite;
 
 // const { Client, Account, ID } = Appwrite;
+// eslint-disable-next-line @typescript-eslint/naming-convention
 const client_appwrite = new Client()
   .setEndpoint('https://cloud.appwrite.io/v1')
   .setProject('64666a86e7d116b4dea2');
@@ -85,7 +87,7 @@ IMAGE_PARENT.addEventListener('wheel', (event) => {
 });
 
 SUBMIT_BUTTON_SNIPPET.addEventListener('click', () => {
-  console.log("Clicked")
+  console.log("Clicked");
   OVERLAY_TEXT.innerText = "Loading...";
   SUBMIT_BUTTON_SNIPPET.innerText = "Loading...";
   let queryParams = new URLSearchParams();
