@@ -11,22 +11,78 @@ const showLineNumbers = true;
 
 // Outputs
 const IMAGE = document.querySelector(".image img");
-const API_ENDPOINT = 'https://code2img.vercel.app';
+const IMAGE_PARENT = document.querySelector(".image");
+
+const API_ENDPOINT = 'http://localhost:3000';
 const FILE_EXTENSION = "png";
 const FILENAME_PREFIX = "Dev-Dash";
 
+let scale = 1;
+let isDragging = false;
+let currentX;
+let currentY;
+let initialX;
+let initialY;
+let xOffset = 0;
+let yOffset = 0;
+
+IMAGE_PARENT.addEventListener('mousedown', dragStart);
+IMAGE_PARENT.addEventListener('mouseup', dragEnd);
+IMAGE_PARENT.addEventListener('mousemove', drag);
+
+function dragStart(event) {
+  initialX = event.clientX - xOffset;
+  initialY = event.clientY - yOffset;
+
+  if (event.target === IMAGE) {
+    isDragging = true;
+  }
+}
+
+function dragEnd() {
+  initialX = currentX;
+  initialY = currentY;
+
+  isDragging = false;
+}
+
+function drag(event) {
+  if (isDragging) {
+    event.preventDefault();
+    currentX = event.clientX - initialX;
+    currentY = event.clientY - initialY;
+
+    xOffset = currentX;
+    yOffset = currentY;
+
+    setTranslate(currentX, currentY, IMAGE);
+  }
+}
+
+function setTranslate(xPos, yPos, el) {
+  el.style.transform = `translate3d(${xPos}px, ${yPos}px, 0) scale(${scale})`;
+}
+
+IMAGE_PARENT.addEventListener('wheel', (event) => {
+  event.preventDefault();
+  scale += event.deltaY * -0.01;
+  scale = Math.min(Math.max(0.125, scale), 4);
+  IMAGE.style.transform = `translate3d(${xOffset}px, ${yOffset}px, 0) scale(${scale})`;
+});
+
 SUBMIT_BUTTON_SNIPPET.addEventListener('click', () => {
+    console.log("Clicked")
     let queryParams = new URLSearchParams();
     queryParams.set('language', LANGUAGE.value);
     queryParams.set('theme', THEME.value);
     queryParams.set('background-color', BACKGROUND_COLOR.value);
     queryParams.set('show-background', BACKGROUND_IMAGE.value);
-    queryParams.set('line-numbers', showLineNumbers.value);
+    queryParams.set('line-numbers', showLineNumbers);
     queryParams.set('background-image', BACKGROUND_IMAGE.value);
     queryParams.set('padding', PADDING.value);
 
-    let requestUrl = `${API_ENDPOINT}/api/to-image?${queryParams.toString()}`;
-
+    let requestUrl = `${API_ENDPOINT}/toImage?${queryParams.toString()}`;
+    console.log(requestUrl);
     fetch(requestUrl, {
         method: 'POST',
         body: CODE.value,
@@ -41,18 +97,17 @@ SUBMIT_BUTTON_SNIPPET.addEventListener('click', () => {
         .then(blob => {
             const imageBlobUrl = window.URL.createObjectURL(blob);
             IMAGE.src = imageBlobUrl;
-            IMAGE.style.scale = "1"
-            const stringPart = Math.random().toString(36).substring(2, 6); // Generate a random string of 4 characters
-            const numberPart = Math.floor(1000 + Math.random() * 9000); // Generate a random 4-digit number
+            IMAGE.style.scale = "1";
             
-            let downloadFileName = `${FILENAME_PREFIX}_${stringPart}_${numberPart}.${FILE_EXTENSION}`;
-
-            // Download the image to the VS Code workspace
+            // let downloadFileName = `${FILENAME_PREFIX}_${stringPart}_${numberPart}.${FILE_EXTENSION}`;
+            // const vscode = acquireVsCodeApi();
             // vscode.postMessage({
-            //     command: 'downloadImage',
+            //     command: 'downloadFile',
             //     url: imageBlobUrl,
             //     filename: downloadFileName
             // });
+
+            console.log(downloadFileName, imageBlobUrl);
 
             clearOverlay();
         })
