@@ -8,7 +8,9 @@
     <title>Document</title>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <script type="text/javascript">(function () { emailjs.init('xYnmOotz_C39WUWnP') })();</script>
+    <script src="https://cdn.jsdelivr.net/npm/appwrite@11.0.0"></script>
 </head>
+
 <body>
     <main class="sign-in">
         <svg class="logo" width="75" height="75" viewBox="0 0 75 75" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -463,7 +465,7 @@
         </div>
 
         <div class="image">
-            <img draggable="false" src=""/>
+            <img draggable="false" src="" />
             <p>Generated Code Snippet Goes Here...</p>
         </div>
         <div class="themesAndLanguage">
@@ -511,15 +513,26 @@
         </div>
 
         <div class="paddingAndColor">
-            <input placeholder="padding" type="number" id="Padding"/>
+            <input placeholder="padding" type="number" id="Padding" />
             <input type="color" id="BackgroundColor">
-            <input id="BackgroundImage" type="text" placeholder="Enter Any Background Image..."/>
+            <input id="BackgroundImage" type="text" placeholder="Enter Any Background Image..." />
             <textarea placeholder="Enter Your Code Here..."></textarea>
             <button class="getSnippet">Create Snippet</button>
         </div>
     </section>
     <div class="red"></div>
     <div class="blue"></div>
+    <script>
+
+        // const promise = storage.createFile('646f5706b0b1624dda46', '[FILE_ID]', document.getElementById('uploader').files[0]);
+
+        // promise.then(function (response) {
+        //     console.log(response); // Success
+        // }, function (error) {
+        //     console.log(error); // Failure
+        // })
+        console.log("LOADED APPWRITE SDK")
+    </script>
 </body>
 
 </html>

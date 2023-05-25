@@ -9,6 +9,18 @@ const SUBMIT_BUTTON_SNIPPET = document.querySelector(".getSnippet");
 const OVERLAY_TEXT = document.querySelector(".image p");
 const showLineNumbers = true;
 
+// Appwrite Init
+const { Client, Storage } = Appwrite;
+
+// const { Client, Account, ID } = Appwrite;
+const client_appwrite = new Client()
+  .setEndpoint('https://cloud.appwrite.io/v1')
+  .setProject('64666a86e7d116b4dea2');
+
+console.log(client_appwrite, " APPWRITE");
+
+const storage = new Storage(client_appwrite);
+
 // Outputs
 const IMAGE = document.querySelector(".image img");
 const IMAGE_PARENT = document.querySelector(".image");
@@ -71,52 +83,76 @@ IMAGE_PARENT.addEventListener('wheel', (event) => {
 });
 
 SUBMIT_BUTTON_SNIPPET.addEventListener('click', () => {
-    console.log("Clicked")
-    let queryParams = new URLSearchParams();
-    queryParams.set('language', LANGUAGE.value);
-    queryParams.set('theme', THEME.value);
-    queryParams.set('background-color', BACKGROUND_COLOR.value);
-    queryParams.set('show-background', BACKGROUND_IMAGE.value);
-    queryParams.set('line-numbers', showLineNumbers);
-    queryParams.set('background-image', BACKGROUND_IMAGE.value);
-    queryParams.set('padding', PADDING.value);
+  console.log("Clicked")
+  OVERLAY_TEXT.innerText = "Loading...";
+  SUBMIT_BUTTON_SNIPPET.innerText = "Loading...";
+  let queryParams = new URLSearchParams();
+  queryParams.set('language', LANGUAGE.value);
+  queryParams.set('theme', THEME.value);
+  queryParams.set('background-color', BACKGROUND_COLOR.value);
+  queryParams.set('show-background', BACKGROUND_IMAGE.value);
+  queryParams.set('line-numbers', showLineNumbers);
+  queryParams.set('background-image', BACKGROUND_IMAGE.value);
+  queryParams.set('padding', PADDING.value);
 
-    let requestUrl = `${API_ENDPOINT}/toImage?${queryParams.toString()}`;
-    console.log(requestUrl);
-    fetch(requestUrl, {
-        method: 'POST',
-        body: CODE.value,
+  let requestUrl = `${API_ENDPOINT}/toImage?${queryParams.toString()}`;
+  console.log(requestUrl);
+  fetch(requestUrl, {
+    method: 'POST',
+    body: CODE.value,
+  })
+    .then(response => {
+      if (response.ok) {
+        return response.blob();
+      } else {
+        throw new Error('Image generation failed.');
+      }
     })
-        .then(response => {
-            if (response.ok) {
-                return response.blob();
-            } else {
-                throw new Error('Image generation failed.');
-            }
-        })
-        .then(blob => {
-            const imageBlobUrl = window.URL.createObjectURL(blob);
-            IMAGE.src = imageBlobUrl;
-            IMAGE.style.scale = "1";
-            
-            // let downloadFileName = `${FILENAME_PREFIX}_${stringPart}_${numberPart}.${FILE_EXTENSION}`;
-            // const vscode = acquireVsCodeApi();
-            // vscode.postMessage({
-            //     command: 'downloadFile',
-            //     url: imageBlobUrl,
-            //     filename: downloadFileName
-            // });
+    .then(blob => {
+      const imageBlobUrl = window.URL.createObjectURL(blob);
+      IMAGE.src = imageBlobUrl;
+      IMAGE.style.scale = "1";
 
-            console.log(downloadFileName, imageBlobUrl);
+      function generateFileId(length) {
+        const validChars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+        let fileId = '';
+        for (let i = 0; i < length; i++) {
+          fileId += validChars.charAt(Math.floor(Math.random() * validChars.length));
+        }
+        return fileId;
+      }
 
-            clearOverlay();
+      const uuid = generateFileId(4);
+      let downloadFileName = `${FILENAME_PREFIX}_${uuid}.${FILE_EXTENSION}`;
+      console.log(downloadFileName);
+      const file = new File([blob], downloadFileName, { type: 'image/png' });
+
+      storage.createFile("646f5706b0b1624dda46", downloadFileName, file)
+        .then((response) => {
+          console.log('File created and uploaded successfully:', response);
+          const publicURL = "https://cloud.appwrite.io/v1/storage/buckets/646f5706b0b1624dda46/files/" + downloadFileName + "/view?project=64666a86e7d116b4dea2&mode=admin";
+          console.log('Public URL:', publicURL);
+          const link = document.createElement('a');
+
+          link.href = publicURL;
+          link.target = '_blank';
+          link.style.display = "none";
+          IMAGE_PARENT.appendChild(link);
+          link.click();
+          clearOverlay();
         })
-        .catch(error => {
-            console.error(error);
-            OVERLAY_TEXT.innerText = "Sorry, something went wrong 🤷‍♂️";
+        .catch((error) => {
+          console.error('File upload failed:', error);
         });
+    })
+    .catch(error => {
+      console.error(error);
+      OVERLAY_TEXT.innerText = "Sorry, something went wrong 🤷‍♂️";
+    });
 
-    function clearOverlay() {
-        OVERLAY_TEXT.innerText = "";
-    }
+
+  function clearOverlay() {
+    OVERLAY_TEXT.innerText = "";
+    SUBMIT_BUTTON_SNIPPET.innerText = "Submit Form";
+  }
 });
