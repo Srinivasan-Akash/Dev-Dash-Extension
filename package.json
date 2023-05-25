@@ -18,6 +18,16 @@
           "command": "devDash.minify",
           "group": "1_modification",
           "when": "editorHasSelection"
+        },
+        {
+          "command": "devDash.convertToReact",
+          "group": "1_modification",
+          "when": "editorHasSelection"
+        },
+        {
+          "command": "devDash.convertToNext",
+          "group": "1_modification",
+          "when": "editorHasSelection"
         }
       ]
     },
@@ -35,6 +45,16 @@
       {
         "command": "devDash.minify",
         "title": "Minify Code From Dev Dash",
+        "category": "Dev Dash"
+      },
+      {
+        "command": "devDash.convertToReact",
+        "title": "Convert To React JSX From Dev Dash",
+        "category": "Dev Dash"
+      },
+      {
+        "command": "devDash.convertToNext",
+        "title": "Convert To Next.js JSX From Dev Dash",
         "category": "Dev Dash"
       }
     ],

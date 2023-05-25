@@ -24,13 +24,11 @@ export function activate(context: any) {
         // Replace the selected code with the minified code
         editor.edit((editBuilder) => {
           editBuilder.replace(selection, minifiedCode);
+          vscode.window.showInformationMessage("Minified Sucessfully From Dev Dash");
         });
       }
     })
   );
-
-  // Start Of Code Snippet Creator
-
 
   // Start Of Change Workspace Color
   context.subscriptions.push(
@@ -78,6 +76,44 @@ export function activate(context: any) {
     vscode.commands.executeCommand("workbench.action.reloadWindow");
     vscode.window.showInformationMessage("Reset Workspace Color");
   }));
+
+  // React Conversion
+  context.subscriptions.push(vscode.commands.registerCommand('devDash.convertToReact', () => {
+    const editor = vscode.window.activeTextEditor;
+    if (editor) {
+      const selection = editor.selection;
+      const text = editor.document.getText(selection);
+  
+      // Replace 'class' with 'className' in the selected code
+      const convertedCode = text.replace(/class="/g, 'className="');
+  
+      // Replace the selected code with the converted code
+      editor.edit((editBuilder) => {
+        editBuilder.replace(selection, convertedCode);
+      });
+    }
+  
+    vscode.window.showInformationMessage("Converted To React Code");
+  }));
+  
+  // Next.js Conversion 
+  context.subscriptions.push(vscode.commands.registerCommand('devDash.convertToNext', () => {
+    const editor = vscode.window.activeTextEditor;
+    if (editor) {
+      const selection = editor.selection;
+      const text = editor.document.getText(selection);
+  
+      // Replace 'class="hello"' with 'className={styles["hello"]}'
+      const convertedCode = text.replace(/class="([^"]*)"/g, 'className={styles["$1"]}');
+      
+      // Replace the selected code with the converted code
+      editor.edit((editBuilder) => {
+        editBuilder.replace(selection, convertedCode);
+      });
+    }
+  
+    vscode.window.showInformationMessage("Converted To React Code");
+  }));  
 
   const changeColorButton = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Right);
   changeColorButton.text = "$(paintcan) Change Workspace Color";
