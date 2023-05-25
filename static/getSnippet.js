@@ -7,7 +7,9 @@ const BACKGROUND_IMAGE = document.querySelector("#BackgroundImage");
 const CODE = document.querySelector(".paddingAndColor textarea");
 const SUBMIT_BUTTON_SNIPPET = document.querySelector(".getSnippet");
 const OVERLAY_TEXT = document.querySelector(".image p");
+const DOWNLOAD_SNIPPET = document.querySelector(".downloadSnippet");
 const showLineNumbers = true;
+let link = null;
 
 // Appwrite Init
 const { Client, Storage } = Appwrite;
@@ -132,13 +134,12 @@ SUBMIT_BUTTON_SNIPPET.addEventListener('click', () => {
           console.log('File created and uploaded successfully:', response);
           const publicURL = "https://cloud.appwrite.io/v1/storage/buckets/646f5706b0b1624dda46/files/" + downloadFileName + "/view?project=64666a86e7d116b4dea2&mode=admin";
           console.log('Public URL:', publicURL);
-          const link = document.createElement('a');
-
+          link = document.createElement('a');
           link.href = publicURL;
           link.target = '_blank';
           link.style.display = "none";
+          DOWNLOAD_SNIPPET.style.display = "block";
           IMAGE_PARENT.appendChild(link);
-          link.click();
           clearOverlay();
         })
         .catch((error) => {
@@ -151,6 +152,7 @@ SUBMIT_BUTTON_SNIPPET.addEventListener('click', () => {
     });
 
 
+  DOWNLOAD_SNIPPET.addEventListener('click', () => link.click());
   function clearOverlay() {
     OVERLAY_TEXT.innerText = "";
     SUBMIT_BUTTON_SNIPPET.innerText = "Submit Form";
