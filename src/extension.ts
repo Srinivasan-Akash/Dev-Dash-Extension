@@ -11,24 +11,27 @@ export function activate(context: any) {
   const sidebarProvider = new SidebarProvider(context.extensionUri);
 
   // Start Of Minify Code BTN
-  context.subscriptions.push(
-    vscode.commands.registerCommand('devDash.minify', () => {
-      const editor = vscode.window.activeTextEditor;
-      if (editor) {
-        const selection = editor.selection;
-        const text = editor.document.getText(selection);
-
-        // Minify the code by removing extra spaces
-        const minifiedCode = text.replace(/\s+/g, ' ');
-
-        // Replace the selected code with the minified code
-        editor.edit((editBuilder) => {
-          editBuilder.replace(selection, minifiedCode);
-          vscode.window.showInformationMessage("Minified Sucessfully From Dev Dash");
-        });
-      }
-    })
-  );
+  context.subscriptions.push(vscode.commands.registerCommand('devDash.minify', () => {
+    const editor = vscode.window.activeTextEditor;
+    if (editor) {
+      const selection = editor.selection;
+      const text = editor.document.getText(selection);
+  
+      // Remove comments from the code
+      const codeWithoutComments = text.replace(/\/\/.*|\/\*[^]*?\*\//g, '');
+  
+      // Minify the code by removing extra spaces
+      const minifiedCode = codeWithoutComments.replace(/\s+/g, ' ');
+  
+      // Replace the selected code with the minified code
+      editor.edit((editBuilder) => {
+        editBuilder.replace(selection, minifiedCode);
+      });
+  
+      vscode.window.showInformationMessage('Minified successfully from Dev Dash');
+    }
+  }));
+  
 
   // Start Of Change Workspace Color
   context.subscriptions.push(
@@ -95,6 +98,39 @@ export function activate(context: any) {
   
     vscode.window.showInformationMessage("Converted To React Code");
   }));
+
+  // Highlight Code
+  let myDecorations: { decorationType: vscode.TextEditorDecorationType, range: vscode.Range } | undefined;
+
+context.subscriptions.push(vscode.commands.registerCommand('devDash.highlightCode', () => {
+  const editor = vscode.window.activeTextEditor;
+  vscode.window.showInformationMessage('Highlighted the selected code. Before');
+  if (editor) {
+    const selection = editor.selection;
+
+    // Get the range of the selected code
+    const range = new vscode.Range(selection.start, selection.end);
+
+    // Define the decoration type for highlighting
+    const colors = ['#FF4136', '#FF851B', '#FFDC00', '#3D9970', '#39CCCC', '#0074D9', '#B10DC9', '#F012BE', '#85144b', '#AAAAAA', '#01FF70', '#FF7F50'];
+    const decorationType = vscode.window.createTextEditorDecorationType({
+      backgroundColor: colors[Math.floor(Math.random() * colors.length)], // Set the desired background color
+    });
+
+    // Create a DecorationOptions object to hold the decoration type and range
+    const decoration = { range, hoverMessage: 'Highlighted code' };
+
+    // Highlight the selected code with the defined decoration type using DecorationOptions
+    editor.setDecorations(decorationType, [decoration]);
+
+    // Store the decoration type and range in the global variable for persistence
+    myDecorations = { decorationType, range };
+
+    // Show a message indicating that the code has been highlighted
+    vscode.window.showInformationMessage('Highlighted the selected code.');
+  }
+}));
+
   
   // Next.js Conversion 
   context.subscriptions.push(vscode.commands.registerCommand('devDash.convertToNext', () => {

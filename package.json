@@ -28,6 +28,11 @@
           "command": "devDash.convertToNext",
           "group": "1_modification",
           "when": "editorHasSelection"
+        },
+        {
+          "command": "devDash.highlightCode",
+          "group": "1_modification",
+          "when": "editorHasSelection"
         }
       ]
     },
@@ -55,6 +60,11 @@
       {
         "command": "devDash.convertToNext",
         "title": "Convert To Next.js JSX From Dev Dash",
+        "category": "Dev Dash"
+      },
+      {
+        "command": "devDash.highlightCode",
+        "title": "Highlight Code From Dev Dash",
         "category": "Dev Dash"
       }
     ],
