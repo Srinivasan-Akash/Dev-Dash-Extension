@@ -150,7 +150,7 @@ SUBMIT_BUTTON_SNIPPET.addEventListener('click', () => {
     })
     .catch(error => {
       console.error(error);
-      OVERLAY_TEXT.innerText = "Sorry, something went wrong 🤷‍♂️";
+      OVERLAY_TEXT.innerText = "Sorry, Our Servers Are Down 💥🤷‍♂️";
     });
 
 

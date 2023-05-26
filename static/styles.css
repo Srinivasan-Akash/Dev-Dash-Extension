@@ -669,6 +669,10 @@ input {
   cursor: pointer;
 }
 
+.pill.selected {
+  border: 1px solid #C5C3C8;
+}
+
 .backendContainer, .frontendContainer {
   scale: 0;
 }

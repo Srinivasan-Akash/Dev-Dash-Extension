@@ -35,8 +35,6 @@ const DEV_ENV = {
     "extension": {}
 };
 
-
-
 let selectedPills = [];
 
 function handlePillClick(event) {
@@ -46,10 +44,10 @@ function handlePillClick(event) {
 
     if (isSelected) {
         selectedPills = selectedPills.filter((item) => item !== domain);
-        pill.style.borderColor = "";
+        pill.classList.remove("selected");
     } else {
         selectedPills.push(domain);
-        pill.style.borderColor = "white";
+        pill.classList.add("selected");
     }
 
     // Handle specific logic for "web" selection
