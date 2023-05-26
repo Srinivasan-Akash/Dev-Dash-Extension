@@ -10,6 +10,8 @@ const GITHUB_VIEW_BUTTON = document.querySelector(".github-view-btn");
 const GO_BACK_FROM_GITHUB_VIEW = document.querySelector(".goBack-gitubView");
 const GO_BACK_FROM_CAPTURE = document.querySelector(".goBack-capture-window");
 const CAPTURE_BTN = document.querySelector(".capture");
+const DEV_ENV_BUTTON = document.querySelector(".dev-env-btn");
+const GO_BACK_FROM_DEV_ENV = document.querySelector(".goBack-dev-env");
 
 // Email Form elements
 const EMAIL_SUBMIT_BUTTON = document.querySelector(".share-feature button");
@@ -25,6 +27,7 @@ const WEBSITE_INFO = document.querySelector(".WebsiteInfo");
 const MINI_TOOLS = document.querySelector(".mini-tools");
 const GITHUB_VIEW = document.querySelector(".github-view");
 const CAPTURE_WINDOW = document.querySelector(".capture-window");
+const DEV_ENV_WINDOW = document.querySelector(".dev-env");
 
 // Props
 const RED_NEON_BLOB = document.querySelector(".red");
@@ -82,6 +85,21 @@ GO_BACK_FROM_WEBSITE_INFO.addEventListener('click', () => {
   RED_NEON_BLOB.style.left = "50%";
   BLUE_NEON_BLOB.style.right = "50%";
   WEBSITE_INFO.style.scale = "0";
+  DASHBOARD_SCREEN.style.scale = "1";
+});
+
+// From & To (DevEnv To Dashboard)
+DEV_ENV_BUTTON.addEventListener('click', () => {
+  RED_NEON_BLOB.style.left = "0%";
+  BLUE_NEON_BLOB.style.right = "0%";
+  DEV_ENV_WINDOW.style.scale = "1";
+  DASHBOARD_SCREEN.style.scale = "0";
+});
+
+GO_BACK_FROM_DEV_ENV.addEventListener('click', () => {
+  RED_NEON_BLOB.style.left = "50%";
+  BLUE_NEON_BLOB.style.right = "50%";
+  DEV_ENV_WINDOW.style.scale = "0";
   DASHBOARD_SCREEN.style.scale = "1";
 });
 

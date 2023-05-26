@@ -544,7 +544,7 @@ input {
 }
 
 /* Start Of Capture Window */
-.capture-window {
+.capture-window, .dev-env {
   width: 100%;
   height: 100%;
   position: absolute;
@@ -554,7 +554,7 @@ input {
   padding: 1em;
 }
 
-.capture-window .title {
+.capture-window .title, .dev-env .title {
   margin: auto;
   width: 90%;
 }
@@ -647,4 +647,28 @@ input {
 
 .downloadSnippet {
   display: none;
+}
+
+/* Devlopment Environment */
+.pills {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
+
+.pills .pill {
+  width: fit-content;
+  height: fit-content;
+  padding: .5em 1em;
+  background: #BA3552;
+  border: 1px solid #233C5F;
+  border-radius: 5px;
+  margin: .5em .5em 0 0;
+  cursor: pointer;
+}
+
+.backendContainer, .frontendContainer {
+  scale: 0;
 }
