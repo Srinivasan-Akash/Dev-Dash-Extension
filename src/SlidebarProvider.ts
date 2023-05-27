@@ -19,6 +19,11 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
     };
 
     webviewView.webview.onDidReceiveMessage(async (message) => {
+
+      if(message.command === "openTodo") {
+        await vscode.commands.executeCommand('devDash.openToDo');
+      }
+
       if (message.command === "installTechStack") {
         console.log("Tech stack to install:", message.techStack);
         const workspaceFolders = vscode.workspace.workspaceFolders;

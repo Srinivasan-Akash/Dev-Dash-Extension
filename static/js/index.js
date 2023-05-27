@@ -12,7 +12,11 @@ const GO_BACK_FROM_CAPTURE = document.querySelector(".goBack-capture-window");
 const CAPTURE_BTN = document.querySelector(".capture");
 const DEV_ENV_BUTTON = document.querySelector(".dev-env-btn");
 const GO_BACK_FROM_DEV_ENV = document.querySelector(".goBack-dev-env");
+const TODO = document.querySelector(".todo");
 
+TODO.addEventListener('click', () => {
+  vscode.postMessage({ command: 'openTodo' });
+})
 // Email Form elements
 const EMAIL_SUBMIT_BUTTON = document.querySelector(".share-feature button");
 const NAME_INPUT = document.querySelector("#name-input");

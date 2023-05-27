@@ -3,6 +3,7 @@ import * as fs from "fs";
 import * as path from "path";
 import * as vscode from "vscode";
 import { SidebarProvider } from "./SlidebarProvider";
+
 /**
  * @param {vscode.ExtensionContext} context
 */
@@ -18,13 +19,40 @@ export function activate(context: vscode.ExtensionContext) {
       const text = editor.document.getText(selection);
       const codeWithoutComments = text.replace(/\/\/.*|\/\*[^]*?\*\//g, '');
       const minifiedCode = codeWithoutComments.replace(/\s+/g, ' ');
-        editor.edit((editBuilder) => {
+      editor.edit((editBuilder) => {
         editBuilder.replace(selection, minifiedCode);
       });
       vscode.window.showInformationMessage('Minified successfully from Dev Dash');
     }
   }));
+
+
+  // Start of Excali draw TODO:
+  context.subscriptions.push(vscode.commands.registerCommand('devDash.openToDo', () => {
+    // Create a new WebView panel
+    const panel = vscode.window.createWebviewPanel(
+      'fullWebView',
+      'White Board From Dev-Dash',
+      vscode.ViewColumn.One, // Choose the column to show the new WebView
+      {
+        enableScripts: true, // Enable scripts in the WebView
+        retainContextWhenHidden: true, // Keep the WebView's context when it's hidden
+        enableFindWidget: true, // Enable find widget in the WebView
+      }
+    );
+
+    // Set the WebView's HTML content to occupy the whole space
+    const htmlPath = vscode.Uri.file(path.join(context.extensionPath, 'static', 'todo.html'));
+    const cssPath = vscode.Uri.file(path.join(context.extensionPath, 'static', 'styles.css'));
   
+    // Read the file contents
+    const htmlContent = fs.readFileSync(htmlPath.fsPath, 'utf-8');
+    const cssContent = fs.readFileSync(cssPath.fsPath, 'utf-8');
+    const jsUri = panel.webview.asWebviewUri(vscode.Uri.file(path.join(context.extensionPath, 'static', 'js', 'todo.js')));
+
+    // Set the WebView's HTML content
+    panel.webview.html = htmlContent + "<style>" + cssContent + "</style>" + `<script src="${jsUri}"></script>`;
+  }));
 
   // Start Of Change Workspace Color
   context.subscriptions.push(
@@ -47,7 +75,7 @@ export function activate(context: vscode.ExtensionContext) {
       };
 
       const vscodeFolderPath = vscode.workspace.rootPath ? path.join(vscode.workspace.rootPath, ".vscode") : "";
-      if (!fs.existsSync(vscodeFolderPath)) {fs.mkdirSync(vscodeFolderPath);}
+      if (!fs.existsSync(vscodeFolderPath)) { fs.mkdirSync(vscodeFolderPath); }
       const settingsPath = path.join(vscodeFolderPath, "settings.json");
       fs.writeFileSync(settingsPath, JSON.stringify(settings, null, 4));
 
@@ -79,40 +107,40 @@ export function activate(context: vscode.ExtensionContext) {
     if (editor) {
       const selection = editor.selection;
       const text = editor.document.getText(selection);
-  
+
       // Replace 'class' with 'className' in the selected code
       const convertedCode = text.replace(/class="/g, 'className="');
-  
+
       // Replace the selected code with the converted code
       editor.edit((editBuilder) => {
         editBuilder.replace(selection, convertedCode);
       });
     }
-  
+
     vscode.window.showInformationMessage("Converted To React Code");
   }));
 
   // Highlight Code
   let myDecorations: { decorationType: vscode.TextEditorDecorationType, range: vscode.Range } | undefined;
 
-context.subscriptions.push(vscode.commands.registerCommand('devDash.highlightCode', () => {
-  const editor = vscode.window.activeTextEditor;
-  vscode.window.showInformationMessage('Highlighted the selected code. Before');
-  if (editor) {
-    const selection = editor.selection;
-    const range = new vscode.Range(selection.start, selection.end);
-    const colors = ['#FF4136', '#FF851B', '#FFDC00', '#3D9970', '#39CCCC', '#0074D9', '#B10DC9', '#F012BE', '#85144b', '#AAAAAA', '#01FF70', '#FF7F50'];
-    const decorationType = vscode.window.createTextEditorDecorationType({
-      backgroundColor: colors[Math.floor(Math.random() * colors.length)], // Set the desired background color
-    });
-    const decoration = { range, hoverMessage: 'Highlighted code' };
-    editor.setDecorations(decorationType, [decoration]);
-    myDecorations = { decorationType, range };
-    vscode.window.showInformationMessage('Highlighted the selected code.');
-  }
-}));
+  context.subscriptions.push(vscode.commands.registerCommand('devDash.highlightCode', () => {
+    const editor = vscode.window.activeTextEditor;
+    vscode.window.showInformationMessage('Highlighted the selected code. Before');
+    if (editor) {
+      const selection = editor.selection;
+      const range = new vscode.Range(selection.start, selection.end);
+      const colors = ['#FF4136', '#FF851B', '#FFDC00', '#3D9970', '#39CCCC', '#0074D9', '#B10DC9', '#F012BE', '#85144b', '#AAAAAA', '#01FF70', '#FF7F50'];
+      const decorationType = vscode.window.createTextEditorDecorationType({
+        backgroundColor: colors[Math.floor(Math.random() * colors.length)], // Set the desired background color
+      });
+      const decoration = { range, hoverMessage: 'Highlighted code' };
+      editor.setDecorations(decorationType, [decoration]);
+      myDecorations = { decorationType, range };
+      vscode.window.showInformationMessage('Highlighted the selected code.');
+    }
+  }));
 
-  
+
   // Next.js Conversion 
   context.subscriptions.push(vscode.commands.registerCommand('devDash.convertToNext', () => {
     const editor = vscode.window.activeTextEditor;
@@ -124,9 +152,9 @@ context.subscriptions.push(vscode.commands.registerCommand('devDash.highlightCod
         editBuilder.replace(selection, convertedCode);
       });
     }
-  
+
     vscode.window.showInformationMessage("Converted To React Code");
-  }));  
+  }));
 
   const changeColorButton = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Right);
   changeColorButton.text = "$(paintcan) Change Workspace Color";

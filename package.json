@@ -43,6 +43,11 @@
         "category": "Dev Dash"
       },
       {
+        "command": "devDash.openToDo",
+        "title": "Open Excali-Draw",
+        "category": "Dev Dash"
+      },
+      {
         "command": "devDash.resetColor",
         "title": "Reset Colors Of Work Space",
         "category": "Dev Dash"

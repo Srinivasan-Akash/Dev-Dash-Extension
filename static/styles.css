@@ -284,7 +284,7 @@ input {
   font-family: sans-serif;
 }
 
-.share-feature button {
+.share-feature button, .sign-up-email-password-btn {
   padding: .8em;
   cursor: pointer;
   margin-top: .25em;
@@ -675,4 +675,23 @@ input {
 
 .backendContainer, .frontendContainer, .BaaS-container, .extras, .componentLibrary, .devEnvironment{
   scale: 0;
+}
+
+.excali .red, .excali .blue {
+  scale: 2;
+}
+
+.excali .password, .excali .email, .sign-up-email-password-btn{
+  max-width: 300px;
+  margin-top: .5em;
+  padding: .5em;
+}
+
+.excali-draw-iframe {
+  display: none;
+}
+
+.box:hover {
+  cursor: pointer;
+  opacity: .7;
 }
