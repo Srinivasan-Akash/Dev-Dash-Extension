@@ -1,48 +1,21 @@
-// const DEV_ENV = {
-//     "web": {
-//         "frontendFramework": ["Vanilla", "React", "Angular", "Svelte", "Vue", "Next.js"],
-//         "backendFramework": ["Express.js", "Koa.js", "Fastify", "Nest.js", "Sails.js"],
-//         "BaaS": ["App Write", "App Smith", "Firebase", "Supabase"],
-//         "cssFrameworks": ["Tailwind CSS", "Bootstrap", "Material-UI", "Bulma", "Pico CSS"],
-//         "stateManagement": {
-//             "React": ["Redux", "Mobx", "Context API"],
-//             "Angular": ["NgRx"],
-//             "Svelte": ["Built-in state management"],
-//             "Vue": ["Vuex"],
-//             "Next.js": ["Redux", "Mobx", "Context API", "Next.js data fetching"],
-//             "default": []
-//         },
-//         "routing": {
-//             "React": ["React Router"],
-//             "Angular": ["Angular Router"],
-//             "Svelte": ["Svelte Router"],
-//             "Vue": ["Vue Router"],
-//             "Next.js": ["Next.js Router"],
-//             "default": []
-//         },
-//         "testing": ["Jest", "React Testing Library", "Cypress", "Jasmine", "Enzyme"],
-//         "formHandling": ["Formik", "Angular Forms", "Svelte Form", "Vue Form", "React Hook Form"],
-//         "dataVisualization": ["D3.js", "Chart.js", "Plotly", "Vega", "ApexCharts"],
-//         "authentication": ["Passport.js", "Firebase Authentication", "Auth0", "Okta", "IdentityServer"],
-//         "animation": ["GSAP", "Anime.js", "React Spring", "Framer Motion", "Lottie"],
-//         "3DGraphics": ["Three.js", "Babylon.js", "A-Frame", "PlayCanvas", "Cannon.js"],
-//         "utilityLibraries": ["Lodash", "Day.js", "Axios", "Moment.js", "Underscore.js"]
-//     },
-//     "game": {},
-//     "mobile": {},
-//     "desktop": {},
-//     "cli": {},
-//     "extension": {}
-// };
-
 const frontendContainer = document.querySelector(".frontendContainer");
 const BaaSContainer = document.querySelector(".BaaS-container");
 const backendContainer = document.querySelector(".backendContainer");
 const componentLibrary = document.querySelector(".componentLibrary");
-const devEnvironment = document.querySelector(".devEnvironment")
+const devEnvironment = document.querySelector(".devEnvironment");
 const extras = document.querySelector(".extras");
+const dev_env_submit_btn = document.querySelector(".devEnvironment button");
+const project_name = document.querySelector(".devEnvironment input");
 
 let selectedPills = [];
+
+dev_env_submit_btn.addEventListener('click', ()=> {
+    vscode.postMessage({
+        command: "installTechStack",
+        techStack: selectedPills,
+        projectName: project_name.value
+    });
+});
 
 function handlePillClick(event) {
     const pill = event.target;

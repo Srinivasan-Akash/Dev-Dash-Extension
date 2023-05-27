@@ -1,6 +1,7 @@
 import * as vscode from "vscode";
 import * as path from "path";
 import * as fs from "fs";
+import * as childProcess from "child_process";
 
 export class SidebarProvider implements vscode.WebviewViewProvider {
   _view?: vscode.WebviewView;
@@ -16,6 +17,133 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
       enableScripts: true,
       localResourceRoots: [this._extensionUri],
     };
+
+    webviewView.webview.onDidReceiveMessage(async (message) => {
+      if (message.command === "installTechStack") {
+        console.log("Tech stack to install:", message.techStack);
+        const workspaceFolders = vscode.workspace.workspaceFolders;
+        if (workspaceFolders && workspaceFolders.length > 0) {
+          const workspacePath = workspaceFolders[0].uri.fsPath;
+          const backendFolderPath = path.join(workspacePath, "backend");
+          const frontendFolderPath = path.join(workspacePath, "frontend");
+    
+          if (!fs.existsSync(backendFolderPath) && !fs.existsSync(frontendFolderPath)) {
+            fs.mkdirSync(backendFolderPath);
+            fs.mkdirSync(frontendFolderPath);
+          }
+    
+          // Remove the first element from the tech stack array
+          const techStack = message.techStack.slice(1);
+    
+          // Categorize tech stack components
+          const backendTechStack = ["express", "koa", "fastify", "nest", "axios"];
+          const frontendTechStack = techStack.filter(
+            (tech: any) => !backendTechStack.includes(tech)
+          );
+    
+          // Install backend tech stack components
+          process.chdir(backendFolderPath);
+          for (const tech of backendTechStack) {
+            if (techStack.includes(tech)) {
+              childProcess.execSync(`npm install --save ${tech.toLowerCase()}`, {
+                stdio: "inherit",
+              });
+            }
+          }
+    
+          // Install frontend tech stack components
+          process.chdir(frontendFolderPath);
+          for (const tech of frontendTechStack) {
+            if (tech === "react" || tech === "next") {
+              try {
+                childProcess.execSync(
+                  `npx create-${tech.toLowerCase()}-app .`,
+                  { stdio: "inherit" }
+                );
+              } catch (error: any) {
+                console.error(`Error occurred while installing ${tech}:`, error.message);
+              }
+            } else if (tech !== "vanilla-js") {
+              childProcess.execSync(`npm install --save ${tech.toLowerCase()}`, {
+                stdio: "inherit",
+              });
+            }
+          }
+    
+          // Create folder structure for vanilla-js
+          if (message.techStack.includes("vanilla-js")) {
+            const frontendStaticPath = path.join(frontendFolderPath, "static");
+            const frontendStylesPath = path.join(frontendFolderPath, "styles");
+            const frontendUtilsPath = path.join(frontendFolderPath, "utils");
+            const frontendScriptsPath = path.join(frontendFolderPath, "scripts");
+    
+            fs.mkdirSync(frontendStaticPath);
+            fs.mkdirSync(frontendStylesPath);
+            fs.mkdirSync(frontendUtilsPath);
+            fs.mkdirSync(frontendScriptsPath);
+    
+            fs.writeFileSync(path.join(frontendStaticPath, "index.html"), "");
+            fs.writeFileSync(path.join(frontendStylesPath, "styles.css"), "");
+            fs.writeFileSync(path.join(frontendUtilsPath, "utils.js"), "");
+            fs.writeFileSync(path.join(frontendScriptsPath, "index.js"), "");
+          }
+    
+          if (message.techStack.includes("express")) {
+            fs.writeFileSync(path.join(backendFolderPath, "index.js"), "// Express server code");
+            fs.writeFileSync(
+              path.join(backendFolderPath, "package.json"),
+              JSON.stringify({
+                name: "backend",
+                version: "1.0.0",
+                scripts: {
+                  dev: "nodemon index.js",
+                },
+                dependencies: {
+                  cors: "^2.8.5",
+                  mongoose: "^6.0.12",
+                  nodemon: "^2.0.12",
+                },
+              })
+            );
+    
+            const routesFolderPath = path.join(backendFolderPath, "routes");
+            const modelsFolderPath = path.join(backendFolderPath, "models");
+            const utilsFolderPath = path.join(backendFolderPath, "utils");
+    
+            fs.mkdirSync(routesFolderPath);
+            fs.mkdirSync(modelsFolderPath);
+            fs.mkdirSync(utilsFolderPath);
+    
+            fs.writeFileSync(path.join(routesFolderPath, "example.js"), "// Example route code");
+            fs.writeFileSync(path.join(modelsFolderPath, "model.js"), "// Model code");
+            fs.writeFileSync(path.join(utilsFolderPath, "db.js"), "// Database utility code");
+          }
+          
+          // Install React and Next.js specifically
+          if (message.techStack.includes("react")) {
+            process.chdir(frontendFolderPath);
+            try {
+              childProcess.execSync(`npx create-react-app .`, { stdio: "inherit" });
+            } catch (error: any) {
+              console.error("Error occurred while installing React:", error.message);
+            }
+          }
+          if (message.techStack.includes("next")) {
+            process.chdir(frontendFolderPath);
+            try {
+              childProcess.execSync(`npx create-next-app .`, { stdio: "inherit" });
+            } catch (error: any) {
+              console.error("Error occurred while installing Next.js:", error.message);
+            }
+          }
+    
+          vscode.window.showInformationMessage("Tech stack installed successfully.");
+        }
+      }
+    });
+    
+    
+    
 
     webviewView.webview.html = this._getHtmlForWebview(webviewView.webview);
   }

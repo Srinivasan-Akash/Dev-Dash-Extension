@@ -7,7 +7,7 @@ import { SidebarProvider } from "./SlidebarProvider";
  * @param {vscode.ExtensionContext} context
 */
 
-export function activate(context: any) {
+export function activate(context: vscode.ExtensionContext) {
   const sidebarProvider = new SidebarProvider(context.extensionUri);
 
   // Start Of Minify Code BTN
@@ -16,18 +16,11 @@ export function activate(context: any) {
     if (editor) {
       const selection = editor.selection;
       const text = editor.document.getText(selection);
-  
-      // Remove comments from the code
       const codeWithoutComments = text.replace(/\/\/.*|\/\*[^]*?\*\//g, '');
-  
-      // Minify the code by removing extra spaces
       const minifiedCode = codeWithoutComments.replace(/\s+/g, ' ');
-  
-      // Replace the selected code with the minified code
-      editor.edit((editBuilder) => {
+        editor.edit((editBuilder) => {
         editBuilder.replace(selection, minifiedCode);
       });
-  
       vscode.window.showInformationMessage('Minified successfully from Dev Dash');
     }
   }));
@@ -107,26 +100,14 @@ context.subscriptions.push(vscode.commands.registerCommand('devDash.highlightCod
   vscode.window.showInformationMessage('Highlighted the selected code. Before');
   if (editor) {
     const selection = editor.selection;
-
-    // Get the range of the selected code
     const range = new vscode.Range(selection.start, selection.end);
-
-    // Define the decoration type for highlighting
     const colors = ['#FF4136', '#FF851B', '#FFDC00', '#3D9970', '#39CCCC', '#0074D9', '#B10DC9', '#F012BE', '#85144b', '#AAAAAA', '#01FF70', '#FF7F50'];
     const decorationType = vscode.window.createTextEditorDecorationType({
       backgroundColor: colors[Math.floor(Math.random() * colors.length)], // Set the desired background color
     });
-
-    // Create a DecorationOptions object to hold the decoration type and range
     const decoration = { range, hoverMessage: 'Highlighted code' };
-
-    // Highlight the selected code with the defined decoration type using DecorationOptions
     editor.setDecorations(decorationType, [decoration]);
-
-    // Store the decoration type and range in the global variable for persistence
     myDecorations = { decorationType, range };
-
-    // Show a message indicating that the code has been highlighted
     vscode.window.showInformationMessage('Highlighted the selected code.');
   }
 }));
@@ -138,11 +119,7 @@ context.subscriptions.push(vscode.commands.registerCommand('devDash.highlightCod
     if (editor) {
       const selection = editor.selection;
       const text = editor.document.getText(selection);
-  
-      // Replace 'class="hello"' with 'className={styles["hello"]}'
       const convertedCode = text.replace(/class="([^"]*)"/g, 'className={styles["$1"]}');
-      
-      // Replace the selected code with the converted code
       editor.edit((editBuilder) => {
         editBuilder.replace(selection, convertedCode);
       });
