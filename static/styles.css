@@ -681,7 +681,7 @@ input {
   scale: 2;
 }
 
-.excali .password, .excali .email, .sign-up-email-password-btn{
+.excali .password, .excali .email, .sign-up-email-password-btn, .excali .name{
   max-width: 300px;
   margin-top: .5em;
   padding: .5em;

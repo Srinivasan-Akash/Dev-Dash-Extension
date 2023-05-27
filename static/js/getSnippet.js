@@ -12,11 +12,8 @@ const showLineNumbers = true;
 let link = null;
 
 // Appwrite Init
-// eslint-disable-next-line @typescript-eslint/naming-convention
 const { Client, Storage } = Appwrite;
 
-// const { Client, Account, ID } = Appwrite;
-// eslint-disable-next-line @typescript-eslint/naming-convention
 const client_appwrite = new Client()
   .setEndpoint('https://cloud.appwrite.io/v1')
   .setProject('64666a86e7d116b4dea2');

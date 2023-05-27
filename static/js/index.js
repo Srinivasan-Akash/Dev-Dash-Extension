@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 // Elements
 const SIGN_IN_BUTTON = document.querySelector("#google-signin-button");
 const SIGN_OUT_BUTTON = document.querySelector(".log-out");
@@ -16,7 +17,7 @@ const TODO = document.querySelector(".todo");
 
 TODO.addEventListener('click', () => {
   vscode.postMessage({ command: 'openTodo' });
-})
+});
 // Email Form elements
 const EMAIL_SUBMIT_BUTTON = document.querySelector(".share-feature button");
 const NAME_INPUT = document.querySelector("#name-input");

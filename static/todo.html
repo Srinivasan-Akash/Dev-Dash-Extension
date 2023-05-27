@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/appwrite@11.0.0"></script>
 </head>
 <body class="excali" style="padding: 0; margin: 0; height: 100vh;">
     <main class="sign-in">
@@ -28,12 +29,14 @@
         </svg>
         <h3>Use VS Code Extension</h3>
         <p>Unlock a world of possibilities. Embracing It</p>
-        <input type="text" class="email" placeholder="Enter Email..."/>
-        <input type="text" class="password" placeholder="Enter Password."/>
+        <input type="text" class="name" placeholder="Enter Your Name..." required/>
+        <input type="email" class="email" placeholder="Enter Email..." required/>
+        <input type="text" class="password" placeholder="Enter Password." required/>
         <button class="sign-up-email-password-btn">Sign Up</button>
     </main>
     <iframe class="excali-draw-iframe" src="https://excalidraw.com/" style="width: 100%; height: 100%; border: none;"></iframe>
     <div class="red"></div>
     <div class="blue"></div>
+    <script>const vscode = acquireVsCodeApi();</script>
 </body>
 </html>
