@@ -177,6 +177,7 @@ nav div {
   height: 25vh;
   margin-top: 1em;
   position: relative;
+  gap: 1em;
   max-width: 500px;
   display: flex;
   align-items: center;

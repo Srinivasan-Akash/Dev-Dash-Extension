@@ -25,7 +25,7 @@ const account = new Account(client_appwrite);
 
 function isAuthenticated() {    
     const accountDetails = account.get();
-   
+    
     accountDetails.then((res) => {
         SIGN_IN_PAGE_IFRAME.style.display = "none";
         EXCALI_DRAW_IFRAME.style.display = "block";
@@ -36,7 +36,7 @@ function isAuthenticated() {
         SIGN_IN_PAGE_IFRAME.style.display = "block";
         EXCALI_DRAW_IFRAME.style.display = "none";
         LOADING.style.display = "none";
-    });
+    })
 }
 
 isAuthenticated()
