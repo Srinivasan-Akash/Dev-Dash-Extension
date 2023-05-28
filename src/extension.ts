@@ -3,6 +3,7 @@ import * as fs from "fs";
 import * as path from "path";
 import * as vscode from "vscode";
 import { SidebarProvider } from "./SlidebarProvider";
+import { obfuscate } from 'javascript-obfuscator';
 
 /**
  * @param {vscode.ExtensionContext} context
@@ -27,7 +28,7 @@ export function activate(context: vscode.ExtensionContext) {
   }));
 
 
-  // Start of Excali draw TODO:
+  // Start of Excali draw
   context.subscriptions.push(vscode.commands.registerCommand('devDash.openToDo', () => {
     // Create a new WebView panel
     const panel = vscode.window.createWebviewPanel(
@@ -44,7 +45,7 @@ export function activate(context: vscode.ExtensionContext) {
     // Set the WebView's HTML content to occupy the whole space
     const htmlPath = vscode.Uri.file(path.join(context.extensionPath, 'static', 'todo.html'));
     const cssPath = vscode.Uri.file(path.join(context.extensionPath, 'static', 'styles.css'));
-  
+
     // Read the file contents
     const htmlContent = fs.readFileSync(htmlPath.fsPath, 'utf-8');
     const cssContent = fs.readFileSync(cssPath.fsPath, 'utf-8');
@@ -101,6 +102,30 @@ export function activate(context: vscode.ExtensionContext) {
     vscode.window.showInformationMessage("Reset Workspace Color");
   }));
 
+  // Obfuscate Code
+  context.subscriptions.push(vscode.commands.registerCommand('devDash.obfuscateCode', () => {
+    const editor = vscode.window.activeTextEditor;
+    if (editor) {
+      const document = editor.document;
+      const selection = editor.selection;
+      const text = document.getText(selection);
+
+      const obfuscationOptions = {
+        compact: true,
+        controlFlowFlattening: false,
+        deadCodeInjection: false,
+        stringArray: true
+      };
+      const obfuscatedCode = obfuscate(text, obfuscationOptions).getObfuscatedCode();
+      editor.edit(editBuilder => {
+        editBuilder.replace(selection, obfuscatedCode);
+      });
+  
+      vscode.window.showInformationMessage('Obfuscated The Code');
+    }
+  }));
+  
+
   // React Conversion
   context.subscriptions.push(vscode.commands.registerCommand('devDash.convertToReact', () => {
     const editor = vscode.window.activeTextEditor;
@@ -153,7 +178,7 @@ export function activate(context: vscode.ExtensionContext) {
       });
     }
 
-    vscode.window.showInformationMessage("Converted To React Code");
+    vscode.window.showInformationMessage("Converted To Next.js Code");
   }));
 
   const changeColorButton = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Right);
