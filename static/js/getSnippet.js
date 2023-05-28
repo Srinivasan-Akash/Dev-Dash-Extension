@@ -97,6 +97,7 @@ SUBMIT_BUTTON_SNIPPET.addEventListener('click', () => {
   queryParams.set('padding', PADDING.value);
 
   let requestUrl = `${API_ENDPOINT}/toImage?${queryParams.toString()}`;
+  
   console.log(requestUrl);
   fetch(requestUrl, {
     method: 'POST',

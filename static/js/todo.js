@@ -1,6 +1,7 @@
 const SIGN_IN_EMAIL_PASSWORD_BTN = document.querySelector(".sign-up-email-password-btn");
 const SIGN_IN_PAGE_IFRAME = document.querySelector(".sign-in");
 const EXCALI_DRAW_IFRAME = document.querySelector(".excali-draw-iframe");
+const LOADING = document.querySelector(".loading");
 
 const EMAIL_INPUT = document.querySelector(".excali .email");
 const PASSWORD_INPUT = document.querySelector(".excali .password");
@@ -22,12 +23,20 @@ const client_appwrite = new Client()
 
 const account = new Account(client_appwrite);
 
-async function isAuthenticated() {    
-    const accountDetails = await account.get();
-    console.log(accountDetails);
-    SIGN_IN_PAGE_IFRAME.style.display = "none";
-    EXCALI_DRAW_IFRAME.style.display = "block";
-    vscode.postMessage({ command: "authFinished" });
+function isAuthenticated() {    
+    const accountDetails = account.get();
+   
+    accountDetails.then((res) => {
+        SIGN_IN_PAGE_IFRAME.style.display = "none";
+        EXCALI_DRAW_IFRAME.style.display = "block";
+        LOADING.style.display = "none";
+        vscode.postMessage({ command: "authFinished" });
+    },
+    (err) => {
+        SIGN_IN_PAGE_IFRAME.style.display = "block";
+        EXCALI_DRAW_IFRAME.style.display = "none";
+        LOADING.style.display = "none";
+    })
 }
 
 isAuthenticated()

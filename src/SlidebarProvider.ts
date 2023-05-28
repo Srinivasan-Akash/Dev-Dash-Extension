@@ -17,6 +17,7 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
       enableScripts: true,
       localResourceRoots: [this._extensionUri],
     };
+    
 
     webviewView.webview.onDidReceiveMessage(async (message) => {
 
