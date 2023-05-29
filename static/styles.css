@@ -492,7 +492,7 @@ input {
   grid-template-columns: 1fr 1fr;
 }
 /* Start Of Mini Tools */
-.mini-tools {
+.mini-tools, .initialRunner {
   width: 100%;
   height: 100%;
   padding: 2em;
@@ -710,4 +710,18 @@ input {
   scale: 1;
   z-index: 99;
   background: #151B1D;
+}
+/* 
+.initialRunner {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0%;
+  left: 0%;
+  scale: 0;
+} */
+
+.initialRunner {
+  scale: 0;
+  padding: 1em 0 0 0;
 }

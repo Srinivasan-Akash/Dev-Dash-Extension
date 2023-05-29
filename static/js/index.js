@@ -1,23 +1,27 @@
-/* eslint-disable @typescript-eslint/naming-convention */
 // Elements
 const SIGN_IN_BUTTON = document.querySelector("#google-signin-button");
 const SIGN_OUT_BUTTON = document.querySelector(".log-out");
 const MOTIVATIONAL_QUOTE = document.querySelector(".quote");
 const MOTIVATONAL_QUOTE_FOUNDER = document.querySelector(".quote-founder");
-const GO_BACK_FROM_WEBSITE_INFO = document.querySelector(".goBack-websiteInfo");
-const GO_BACK_FROM_MINI_TOOLS = document.querySelector(".goBack-miniTools");
 const MINI_TOOLS_BUTTON = document.querySelector(".tools");
 const GITHUB_VIEW_BUTTON = document.querySelector(".github-view-btn");
-const GO_BACK_FROM_GITHUB_VIEW = document.querySelector(".goBack-gitubView");
-const GO_BACK_FROM_CAPTURE = document.querySelector(".goBack-capture-window");
 const CAPTURE_BTN = document.querySelector(".capture");
 const DEV_ENV_BUTTON = document.querySelector(".dev-env-btn");
-const GO_BACK_FROM_DEV_ENV = document.querySelector(".goBack-dev-env");
 const TODO = document.querySelector(".todo");
+const INTIAL_RUNNER = document.querySelector(".goToIntialRunner");
+
+// Back Btns
+const GO_BACK_FROM_DEV_ENV = document.querySelector(".goBack-dev-env");
+const GO_BACK_FROM_GITHUB_VIEW = document.querySelector(".goBack-gitubView");
+const GO_BACK_FROM_WEBSITE_INFO = document.querySelector(".goBack-websiteInfo");
+const GO_BACK_FROM_MINI_TOOLS = document.querySelector(".goBack-miniTools");
+const GO_BACK_FROM_CAPTURE = document.querySelector(".goBack-capture-window");
+const GO_BACK_FROM_INTIAL_RUNNER = document.querySelector(".goBack-initialRunner");
 
 TODO.addEventListener('click', () => {
   vscode.postMessage({ command: 'openTodo' });
 });
+
 // Email Form elements
 const EMAIL_SUBMIT_BUTTON = document.querySelector(".share-feature button");
 const NAME_INPUT = document.querySelector("#name-input");
@@ -33,26 +37,68 @@ const MINI_TOOLS = document.querySelector(".mini-tools");
 const GITHUB_VIEW = document.querySelector(".github-view");
 const CAPTURE_WINDOW = document.querySelector(".capture-window");
 const DEV_ENV_WINDOW = document.querySelector(".dev-env");
+const INITIAL_RUNNER_SCREEN = document.querySelector(".initialRunner");
 
 // Props
 const RED_NEON_BLOB = document.querySelector(".red");
 const BLUE_NEON_BLOB = document.querySelector(".blue");
 
-// Event Listeners
-// Form & To Dashboard & Login
-SIGN_IN_BUTTON.addEventListener("click", () => {
+// Navigation Utils
+function goTo(goTo, from) {
   RED_NEON_BLOB.style.left = "50%";
   BLUE_NEON_BLOB.style.right = "50%";
-  SIGN_IN_SCREEN.style.scale = "0";
-  DASHBOARD_SCREEN.style.scale = "1";
-});
+  goTo.style.scale = "0";
+  from.style.scale = "1";
+  console.log(goTo, from)
+}
 
-SIGN_OUT_BUTTON.addEventListener("click", () => {
+function back(backTo, from) {
   RED_NEON_BLOB.style.left = "0%";
   BLUE_NEON_BLOB.style.right = "0%";
-  SIGN_IN_SCREEN.style.scale = "1";
-  DASHBOARD_SCREEN.style.scale = "0";
-});
+  backTo.style.scale = "1";
+  from.style.scale = "0";
+  console.log(backTo, from)
+}
+
+SIGN_IN_BUTTON.addEventListener("click", () => goTo(SIGN_IN_SCREEN, DASHBOARD_SCREEN));
+SIGN_OUT_BUTTON.addEventListener("click", () => back(SIGN_IN_SCREEN, DASHBOARD_SCREEN));
+
+// From & To (GetWebsiteInfo To Dashboard)
+GET_WEBSITE_INFO_BUTTON.addEventListener('click', () => goTo(DASHBOARD_SCREEN, WEBSITE_INFO));
+GO_BACK_FROM_WEBSITE_INFO.addEventListener('click', () => back(DASHBOARD_SCREEN, WEBSITE_INFO));
+
+// From & To (DevEnv To Dashboard)
+DEV_ENV_BUTTON.addEventListener('click', () => goTo(DASHBOARD_SCREEN, DEV_ENV_WINDOW));
+GO_BACK_FROM_DEV_ENV.addEventListener('click', () => back(DASHBOARD_SCREEN, DEV_ENV_WINDOW));
+
+// From & To (miniTools To Dashboard)
+MINI_TOOLS_BUTTON.addEventListener('click', () => goTo(DASHBOARD_SCREEN, MINI_TOOLS));
+GO_BACK_FROM_MINI_TOOLS.addEventListener('click', () => back(DASHBOARD_SCREEN, MINI_TOOLS));
+
+// From & To (Capture To Dashboard)
+CAPTURE_BTN.addEventListener('click', () => goTo(DASHBOARD_SCREEN, CAPTURE_WINDOW));
+GO_BACK_FROM_CAPTURE.addEventListener('click', () => back(DASHBOARD_SCREEN, CAPTURE_WINDOW));
+
+// From & To (Github View to Dashboard)
+GITHUB_VIEW_BUTTON.addEventListener('click', () => goTo(DASHBOARD_SCREEN, GITHUB_VIEW));
+GO_BACK_FROM_GITHUB_VIEW.addEventListener('click', () => back(DASHBOARD_SCREEN, GITHUB_VIEW));
+
+// From & To (INTIAL_RUNNER to Dashboard)
+INTIAL_RUNNER.addEventListener('click', () => goTo(DASHBOARD_SCREEN, INITIAL_RUNNER_SCREEN));
+GO_BACK_FROM_INTIAL_RUNNER.addEventListener('click', () => back(DASHBOARD_SCREEN, INITIAL_RUNNER_SCREEN));
+
+// GET JOKE
+function getJoke() {
+  fetch("https://type.fit/api/quotes")
+    .then((response) => response.json())
+    .then((data) => {
+      let randomQuote = data[Math.floor(Math.random() * data.length)];
+      MOTIVATIONAL_QUOTE.innerText = randomQuote.text.length >= 100?randomQuote.text.substring(0, 100): randomQuote.text;
+      MOTIVATONAL_QUOTE_FOUNDER.innerText = `~${randomQuote.author === null ? "unknown" : randomQuote.author}`;
+  });
+}
+
+getJoke();
 
 // MAIL
 EMAIL_SUBMIT_BUTTON.addEventListener('click', () => {
@@ -77,92 +123,3 @@ EMAIL_SUBMIT_BUTTON.addEventListener('click', () => {
       setTimeout(() => EMAIL_SUBMIT_BUTTON.innerText = "Submit Form", 2000);
     });
 });
-
-// From & To (GetWebsiteInfo To Dashboard)
-GET_WEBSITE_INFO_BUTTON.addEventListener('click', () => {
-  RED_NEON_BLOB.style.left = "0%";
-  BLUE_NEON_BLOB.style.right = "0%";
-  WEBSITE_INFO.style.scale = "1";
-  DASHBOARD_SCREEN.style.scale = "0";
-});
-
-GO_BACK_FROM_WEBSITE_INFO.addEventListener('click', () => {
-  RED_NEON_BLOB.style.left = "50%";
-  BLUE_NEON_BLOB.style.right = "50%";
-  WEBSITE_INFO.style.scale = "0";
-  DASHBOARD_SCREEN.style.scale = "1";
-});
-
-// From & To (DevEnv To Dashboard)
-DEV_ENV_BUTTON.addEventListener('click', () => {
-  RED_NEON_BLOB.style.left = "0%";
-  BLUE_NEON_BLOB.style.right = "0%";
-  DEV_ENV_WINDOW.style.scale = "1";
-  DASHBOARD_SCREEN.style.scale = "0";
-});
-
-GO_BACK_FROM_DEV_ENV.addEventListener('click', () => {
-  RED_NEON_BLOB.style.left = "50%";
-  BLUE_NEON_BLOB.style.right = "50%";
-  DEV_ENV_WINDOW.style.scale = "0";
-  DASHBOARD_SCREEN.style.scale = "1";
-});
-
-// From & To (miniTools To Dashboard)
-MINI_TOOLS_BUTTON.addEventListener('click', () => {
-  RED_NEON_BLOB.style.left = "0%";
-  BLUE_NEON_BLOB.style.right = "0%";
-  DASHBOARD_SCREEN.style.scale = "0";
-  MINI_TOOLS.style.scale = "1";
-});
-
-GO_BACK_FROM_MINI_TOOLS.addEventListener('click', () => {
-  RED_NEON_BLOB.style.left = "50%";
-  BLUE_NEON_BLOB.style.right = "50%";
-  MINI_TOOLS.style.scale = "0";
-  DASHBOARD_SCREEN.style.scale = "1";
-});
-
-// From & To (Capture To Dashboard)
-CAPTURE_BTN.addEventListener('click', () => {
-  RED_NEON_BLOB.style.left = "0%";
-  BLUE_NEON_BLOB.style.right = "0%";
-  DASHBOARD_SCREEN.style.scale = "0";
-  CAPTURE_WINDOW.style.scale = "1";
-});
-
-GO_BACK_FROM_CAPTURE.addEventListener('click', () => {
-  RED_NEON_BLOB.style.left = "50%";
-  BLUE_NEON_BLOB.style.right = "50%";
-  CAPTURE_WINDOW.style.scale = "0";
-  DASHBOARD_SCREEN.style.scale = "1";
-});
-
-// From & To (Github View to Dashboard)
-GITHUB_VIEW_BUTTON.addEventListener('click', () => {
-  RED_NEON_BLOB.style.left = "0%";
-  BLUE_NEON_BLOB.style.right = "0%";
-  DASHBOARD_SCREEN.style.scale = "0";
-  GITHUB_VIEW.style.scale = "1";
-});
-
-GO_BACK_FROM_GITHUB_VIEW.addEventListener('click', () => {
-  RED_NEON_BLOB.style.left = "50%";
-  BLUE_NEON_BLOB.style.right = "50%";
-  GITHUB_VIEW.style.scale = "0";
-  DASHBOARD_SCREEN.style.scale = "1";
-});
-
-// Functionality
-getJoke();
-
-// API Functions
-function getJoke() {
-  fetch("https://type.fit/api/quotes")
-    .then((response) => response.json())
-    .then((data) => {
-      let randomQuote = data[Math.floor(Math.random() * data.length)];
-      MOTIVATIONAL_QUOTE.innerText = randomQuote.text.length >= 100?randomQuote.text.substring(0, 100): randomQuote.text;
-      MOTIVATONAL_QUOTE_FOUNDER.innerText = `~${randomQuote.author === null ? "unknown" : randomQuote.author}`;
-  });
-}
