@@ -726,11 +726,19 @@ input {
   padding: 1em 0 0 0;
 }
 
-
-
 .pending {
   color: rgb(255, 149, 0);
   font-weight: bolder;
   position: absolute;
   right: 20%;
+}
+
+.pending2 {
+  color: rgb(255, 149, 0);
+}
+
+.study-resources {
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-around;
 }
