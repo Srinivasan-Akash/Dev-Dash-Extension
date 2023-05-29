@@ -54,7 +54,12 @@
       },
       {
         "command": "devDash.openToDo",
-        "title": "Open Excali-Draw",
+        "title": "Open Excali-Draw From Dev Dash",
+        "category": "Dev Dash"
+      },
+      {
+        "command": "devDash.openFileShare",
+        "title": "Open File-Bin From Dev Dash",
         "category": "Dev Dash"
       },
       {

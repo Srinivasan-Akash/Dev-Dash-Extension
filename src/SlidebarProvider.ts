@@ -19,15 +19,19 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
     webviewView.webview.onDidReceiveMessage(async (message) => {
 
       if (message.command === "authFailed") {
-        await vscode.window.showErrorMessage("Sign Up Failed.");
+        vscode.window.showErrorMessage("Sign Up Failed.");
       }
 
       if (message.command === "authFinished") {
-        await vscode.window.showInformationMessage("Sign Up Sucessfull.");
+        vscode.window.showInformationMessage("Sign Up Sucessfull.");
       }
 
       if (message.command === "openTodo") {
         await vscode.commands.executeCommand('devDash.openToDo');
+      }
+
+      if(message.command === "openFileSharing") {
+        await vscode.commands.executeCommand('devDash.openFileShare');
       }
 
 

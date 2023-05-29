@@ -41,7 +41,7 @@ export function activate(context: vscode.ExtensionContext) {
     );
 
     // Set the WebView's HTML content to occupy the whole space
-    const htmlPath = vscode.Uri.file(path.join(context.extensionPath, 'static', 'todo.html'));
+    const htmlPath = vscode.Uri.file(path.join(context.extensionPath, 'static', "views", 'todo.html'));
     const cssPath = vscode.Uri.file(path.join(context.extensionPath, 'static', 'styles.css'));
 
     // Read the file contents
@@ -51,6 +51,30 @@ export function activate(context: vscode.ExtensionContext) {
 
     // Set the WebView's HTML content
     panel.webview.html = htmlContent + "<style>" + cssContent + "</style>" + `<script src="${jsUri}"></script>`;
+  }));
+
+  context.subscriptions.push(vscode.commands.registerCommand('devDash.openFileShare', () => {
+    const panel = vscode.window.createWebviewPanel(
+      'fullWebView',
+      'File-Bin From Dev-Dash',
+      vscode.ViewColumn.One, // Choose the column to show the new WebView
+      {
+        enableScripts: true, // Enable scripts in the WebView
+        retainContextWhenHidden: true, // Keep the WebView's context when it's hidden
+        enableFindWidget: true, // Enable find widget in the WebView
+      }
+    );
+
+    // Set the WebView's HTML content to occupy the whole space
+    const htmlPath = vscode.Uri.file(path.join(context.extensionPath, 'static', "views", 'fileShare.html'));
+    const cssPath = vscode.Uri.file(path.join(context.extensionPath, 'static', 'styles.css'));
+
+    // Read the file contents
+    const htmlContent = fs.readFileSync(htmlPath.fsPath, 'utf-8');
+    const cssContent = fs.readFileSync(cssPath.fsPath, 'utf-8');
+
+    // Set the WebView's HTML content
+    panel.webview.html = htmlContent + "<style>" + cssContent + "</style>";
   }));
 
   // Start Of Change Workspace Color

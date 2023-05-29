@@ -8,6 +8,7 @@ const GITHUB_VIEW_BUTTON = document.querySelector(".github-view-btn");
 const CAPTURE_BTN = document.querySelector(".capture");
 const DEV_ENV_BUTTON = document.querySelector(".dev-env-btn");
 const TODO = document.querySelector(".todo");
+const FILE_SHARING = document.querySelector(".fileSharing");
 const INTIAL_RUNNER = document.querySelector(".goToIntialRunner");
 
 // Back Btns
@@ -18,9 +19,8 @@ const GO_BACK_FROM_MINI_TOOLS = document.querySelector(".goBack-miniTools");
 const GO_BACK_FROM_CAPTURE = document.querySelector(".goBack-capture-window");
 const GO_BACK_FROM_INTIAL_RUNNER = document.querySelector(".goBack-initialRunner");
 
-TODO.addEventListener('click', () => {
-  vscode.postMessage({ command: 'openTodo' });
-});
+TODO.addEventListener('click', () => vscode.postMessage({ command: 'openTodo' }));
+FILE_SHARING.addEventListener('click', () => vscode.postMessage({ command: 'openFileSharing' }));
 
 // Email Form elements
 const EMAIL_SUBMIT_BUTTON = document.querySelector(".share-feature button");
