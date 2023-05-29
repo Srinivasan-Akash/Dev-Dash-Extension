@@ -7,31 +7,47 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
   _view?: vscode.WebviewView;
   _doc?: vscode.TextDocument;
 
-  constructor(private readonly _extensionUri: vscode.Uri) {} 
+  constructor(private readonly _extensionUri: vscode.Uri) { }
 
   public resolveWebviewView(webviewView: vscode.WebviewView) {
     this._view = webviewView;
-
-
     webviewView.webview.options = {
       enableScripts: true,
       localResourceRoots: [this._extensionUri],
     };
-    
 
     webviewView.webview.onDidReceiveMessage(async (message) => {
 
-      if(message.command === "authFailed") {
-        vscode.window.showErrorMessage("Sign Up Failed.");
+      if (message.command === "authFailed") {
+        await vscode.window.showErrorMessage("Sign Up Failed.");
       }
 
-      if(message.command === "authFinished") {
-        vscode.window.showInformationMessage("Sign Up Sucessfull.");
+      if (message.command === "authFinished") {
+        await vscode.window.showInformationMessage("Sign Up Sucessfull.");
       }
 
-      if(message.command === "openTodo") {
+      if (message.command === "openTodo") {
         await vscode.commands.executeCommand('devDash.openToDo');
       }
+
+
+      if (message.command === "commandsIntialRunner") {
+        console.log(message.intialCommands.split(","));
+      
+        const vscodeFolderPath = vscode.workspace.rootPath ? path.join(vscode.workspace.rootPath, ".vscode") : "";
+        if (!fs.existsSync(vscodeFolderPath)) {
+          fs.mkdirSync(vscodeFolderPath);
+        }
+        const initialCommandsPath = path.join(vscodeFolderPath, "initialCommands.json");
+        try {
+          let commands = message.intialCommands.split(",").map((command: String) => command.trim());
+          fs.writeFileSync(initialCommandsPath, JSON.stringify({ intial_commands: commands }, null, 4));
+          vscode.window.showInformationMessage("Saved Commands.");
+        } catch {
+          vscode.window.showInformationMessage("Some Error Occurred.");
+        }
+      }
+      
 
       if (message.command === "installTechStack") {
         console.log("Tech stack to install:", message.techStack);
@@ -40,21 +56,21 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
           const workspacePath = workspaceFolders[0].uri.fsPath;
           const backendFolderPath = path.join(workspacePath, "backend");
           const frontendFolderPath = path.join(workspacePath, "frontend");
-    
+
           if (!fs.existsSync(backendFolderPath) && !fs.existsSync(frontendFolderPath)) {
             fs.mkdirSync(backendFolderPath);
             fs.mkdirSync(frontendFolderPath);
           }
-    
+
           // Remove the first element from the tech stack array
           const techStack = message.techStack.slice(1);
-    
+
           // Categorize tech stack components
           const backendTechStack = ["express", "koa", "fastify", "nest", "axios"];
           const frontendTechStack = techStack.filter(
             (tech: any) => !backendTechStack.includes(tech)
           );
-    
+
           // Install backend tech stack components
           process.chdir(backendFolderPath);
           for (const tech of backendTechStack) {
@@ -64,7 +80,7 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
               });
             }
           }
-    
+
           // Install frontend tech stack components
           process.chdir(frontendFolderPath);
           for (const tech of frontendTechStack) {
@@ -83,25 +99,25 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
               });
             }
           }
-    
+
           // Create folder structure for vanilla-js
           if (message.techStack.includes("vanilla-js")) {
             const frontendStaticPath = path.join(frontendFolderPath, "static");
             const frontendStylesPath = path.join(frontendFolderPath, "styles");
             const frontendUtilsPath = path.join(frontendFolderPath, "utils");
             const frontendScriptsPath = path.join(frontendFolderPath, "scripts");
-    
+
             fs.mkdirSync(frontendStaticPath);
             fs.mkdirSync(frontendStylesPath);
             fs.mkdirSync(frontendUtilsPath);
             fs.mkdirSync(frontendScriptsPath);
-    
+
             fs.writeFileSync(path.join(frontendStaticPath, "index.html"), "");
             fs.writeFileSync(path.join(frontendStylesPath, "styles.css"), "");
             fs.writeFileSync(path.join(frontendUtilsPath, "utils.js"), "");
             fs.writeFileSync(path.join(frontendScriptsPath, "index.js"), "");
           }
-    
+
           if (message.techStack.includes("express")) {
             fs.writeFileSync(path.join(backendFolderPath, "index.js"), "// Express server code");
             fs.writeFileSync(
@@ -119,20 +135,20 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
                 },
               })
             );
-    
+
             const routesFolderPath = path.join(backendFolderPath, "routes");
             const modelsFolderPath = path.join(backendFolderPath, "models");
             const utilsFolderPath = path.join(backendFolderPath, "utils");
-    
+
             fs.mkdirSync(routesFolderPath);
             fs.mkdirSync(modelsFolderPath);
             fs.mkdirSync(utilsFolderPath);
-    
+
             fs.writeFileSync(path.join(routesFolderPath, "example.js"), "// Example route code");
             fs.writeFileSync(path.join(modelsFolderPath, "model.js"), "// Model code");
             fs.writeFileSync(path.join(utilsFolderPath, "db.js"), "// Database utility code");
           }
-          
+
           // Install React and Next.js specifically
           if (message.techStack.includes("react")) {
             process.chdir(frontendFolderPath);
@@ -150,14 +166,11 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
               console.error("Error occurred while installing Next.js:", error.message);
             }
           }
-    
+
           vscode.window.showInformationMessage("Tech stack installed successfully.");
         }
       }
     });
-    
-    
-    
 
     webviewView.webview.html = this._getHtmlForWebview(webviewView.webview);
   }
@@ -167,9 +180,11 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
     const indexPath = path.join(staticFolderPath, "index.html");
     const stylesPath = path.join(staticFolderPath, "styles.css");
     const scriptsPath = path.join(staticFolderPath, "js", "index.js");
-    const getTechStackScript = path.join(staticFolderPath, "js","getTechStack.js");
-    const getSnippetScript = path.join(staticFolderPath, "js","getSnippet.js");
-    const createDevEnvScript = path.join(staticFolderPath, "js","createDevEnvironment.js");
+    const getTechStackScript = path.join(staticFolderPath, "js", "getTechStack.js");
+    const getSnippetScript = path.join(staticFolderPath, "js", "getSnippet.js");
+    const createDevEnvScript = path.join(staticFolderPath, "js", "createDevEnvironment.js");
+    const intialRunnerScript = path.join(staticFolderPath, "js", "intialRunner.js");
+
 
     const cssCode = fs.readFileSync(stylesPath, 'utf8');
     const htmlCode = fs.readFileSync(indexPath, "utf8");
@@ -177,7 +192,8 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
     const techStackUri = webview.asWebviewUri(vscode.Uri.file(getTechStackScript));
     const snippetUri = webview.asWebviewUri(vscode.Uri.file(getSnippetScript));
     const createDevelopmentUri = webview.asWebviewUri(vscode.Uri.file(createDevEnvScript));
-    
-    return htmlCode + `<style> ${cssCode} </style>` + `<script src="${scriptsUri}"> </script>` + `<script src="${techStackUri}"> </script>` + `<script src="${snippetUri}"> </script>` + `<script src="${createDevelopmentUri}"> </script>`;
+    const intialRunnerUri = webview.asWebviewUri(vscode.Uri.file(intialRunnerScript));
+
+    return htmlCode + `<style> ${cssCode} </style>` + `<script src="${scriptsUri}"> </script>` + `<script src="${techStackUri}"> </script>` + `<script src="${snippetUri}"> </script>` + `<script src="${createDevelopmentUri}"> </script>` + `<script src="${intialRunnerUri}"> </script>`;
   }
 }

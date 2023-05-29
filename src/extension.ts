@@ -27,7 +27,6 @@ export function activate(context: vscode.ExtensionContext) {
     }
   }));
 
-
   // Start of Excali draw
   context.subscriptions.push(vscode.commands.registerCommand('devDash.openToDo', () => {
     // Create a new WebView panel
@@ -192,6 +191,44 @@ export function activate(context: vscode.ExtensionContext) {
   context.subscriptions.push(
     vscode.window.registerWebviewViewProvider("devDash-sidebar", sidebarProvider)
   );
+
+  // Start Of Intial Commands
+  checkInitialCommands();
+
+  // Function to check and run initial commands
+  function checkInitialCommands() {
+    const rootPath = vscode.workspace.rootPath;
+    if (!rootPath) {
+      return; // No workspace opened
+    }
+
+    const vscodeFolderPath = path.join(rootPath, ".vscode");
+    const initialCommandsPath = path.join(vscodeFolderPath, "initialCommands.json");
+
+    if (fs.existsSync(initialCommandsPath)) {
+      try {
+        const commandsData = fs.readFileSync(initialCommandsPath, 'utf8');
+        const commandsObj = JSON.parse(commandsData);
+        const initialCommands = commandsObj.intial_commands;
+
+        if (Array.isArray(initialCommands) && initialCommands.length > 0) {
+          executeCommands(initialCommands);
+          vscode.window.showInformationMessage("Executed initial commands from initialCommands.json.");
+        }
+      } catch (error) {
+        console.error('Error reading or parsing initialCommands.json:', error);
+      }
+    }
+  }
+
+  // Function to execute commands in the terminal
+  function executeCommands(commands: any) {
+    const terminal = vscode.window.createTerminal();
+    commands.forEach((command: any) => {
+      terminal.sendText(command);
+      terminal.show();
+    });
+  }
 }
 
 export function deactivate() { }
