@@ -39,7 +39,6 @@ export function activate(context: vscode.ExtensionContext) {
         enableFindWidget: true, // Enable find widget in the WebView
       }
     );
-
     // Set the WebView's HTML content to occupy the whole space
     const htmlPath = vscode.Uri.file(path.join(context.extensionPath, 'static', "views", 'todo.html'));
     const cssPath = vscode.Uri.file(path.join(context.extensionPath, 'static', 'styles.css'));
@@ -155,7 +154,6 @@ export function activate(context: vscode.ExtensionContext) {
       const selection = editor.selection;
       const text = editor.document.getText(selection);
 
-      // Replace 'class' with 'className' in the selected code
       const convertedCode = text.replace(/class="/g, 'className="');
 
       // Replace the selected code with the converted code
