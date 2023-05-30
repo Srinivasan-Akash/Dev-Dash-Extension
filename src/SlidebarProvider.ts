@@ -17,24 +17,21 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
     };
 
     webviewView.webview.onDidReceiveMessage((message) => {
-      console.log(message.command)
-      if(message.command === "dead-css") {
-        console.log(message.paths, message.whitelist);
-        console.log("DONE");
+      if (message.command === 'dead-css') {
+        
       }
 
       if (message.command === "openTodo") {
         (async () => await vscode.commands.executeCommand('devDash.openToDo'))();
       }
 
-      if(message.command === "openFileSharing") {
+      if (message.command === "openFileSharing") {
         (async () => await vscode.commands.executeCommand('devDash.openFileShare'))();
       }
 
-
       if (message.command === "commandsIntialRunner") {
         console.log(message.intialCommands.split(","));
-      
+
         const vscodeFolderPath = vscode.workspace.rootPath ? path.join(vscode.workspace.rootPath, ".vscode") : "";
         if (!fs.existsSync(vscodeFolderPath)) {
           fs.mkdirSync(vscodeFolderPath);
@@ -48,7 +45,6 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
           vscode.window.showInformationMessage("Some Error Occurred.");
         }
       }
-      
 
       if (message.command === "installTechStack") {
         console.log("Tech stack to install:", message.techStack);
@@ -178,7 +174,7 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
 
   private _getHtmlForWebview(webview: vscode.Webview) {
     const staticFolderPath = path.join(this._extensionUri.fsPath, "static");
-  
+
     const indexPath = path.join(staticFolderPath, "index.html");
     const stylesPath = path.join(staticFolderPath, "styles.css");
     const scriptsPath = path.join(staticFolderPath, "js", "index.js");
@@ -188,7 +184,8 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
     const intialRunnerScript = path.join(staticFolderPath, "js", "intialRunner.js");
     const mockDataScript = path.join(staticFolderPath, "js", "data-mocking.js");
     const documentApiScript = path.join(staticFolderPath, "js", "documentAPI.js");
-  
+    const deadCodeScript = path.join(staticFolderPath, "js", "deadCode.js");
+
     const cssCode = fs.readFileSync(stylesPath, 'utf8');
     const htmlCode = fs.readFileSync(indexPath, "utf8");
     const scriptsUri = webview.asWebviewUri(vscode.Uri.file(scriptsPath));
@@ -198,8 +195,8 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
     const mockDataUri = webview.asWebviewUri(vscode.Uri.file(mockDataScript));
     const intialRunnerUri = webview.asWebviewUri(vscode.Uri.file(intialRunnerScript));
     const documentAPIUri = webview.asWebviewUri(vscode.Uri.file(documentApiScript));
-    console.log("loaded")
-    
+    const deadCodeUri = webview.asWebviewUri(vscode.Uri.file(deadCodeScript));
+
     return htmlCode +
       `<style>${cssCode}</style>` +
       `<script src="${scriptsUri}"></script>` +
@@ -208,6 +205,7 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
       `<script src="${createDevelopmentUri}"></script>` +
       `<script src="${intialRunnerUri}"></script>` +
       `<script src="${mockDataUri}"></script>` +
-      `<script src="${documentAPIUri}"></script>`;
+      `<script src="${documentAPIUri}"></script>` +
+      `<script src="${deadCodeUri}"></script>`;
   }
 }

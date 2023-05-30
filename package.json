@@ -85,6 +85,11 @@
         "category": "Dev Dash"
       },
       {
+        "command": "devDash.openGames",
+        "title": "Open Games From Dev Dash",
+        "category": "Dev Dash"
+      },
+      {
         "command": "devDash.openFileShare",
         "title": "Open File-Bin From Dev Dash",
         "category": "Dev Dash"

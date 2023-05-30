@@ -10,7 +10,6 @@ import { obfuscate } from 'javascript-obfuscator';
 
 export function activate(context: vscode.ExtensionContext) {
   const sidebarProvider = new SidebarProvider(context.extensionUri);
-
   // Start Of Minify Code BTN
   context.subscriptions.push(vscode.commands.registerCommand('devDash.minify', () => {
     const editor = vscode.window.activeTextEditor;
@@ -61,6 +60,33 @@ export function activate(context: vscode.ExtensionContext) {
     panel.webview.html = htmlContent + "<style>" + cssContent + "</style>" + `<script src="${jsUri}"></script>`;
   }));
 
+  // Start of Games
+  context.subscriptions.push(vscode.commands.registerCommand('devDash.openGames', () => {
+    // Create a new WebView panel
+    const panel = vscode.window.createWebviewPanel(
+      'fullWebView',
+      'Games From Dev-Dash',
+      vscode.ViewColumn.One, // Choose the column to show the new WebView
+      {
+        enableScripts: true, // Enable scripts in the WebView
+        retainContextWhenHidden: true, // Keep the WebView's context when it's hidden
+        enableFindWidget: true, // Enable find widget in the WebView
+      }
+    );
+    // Set the WebView's HTML content to occupy the whole space
+    const htmlPath = vscode.Uri.file(path.join(context.extensionPath, 'static', "views", 'games.html'));
+    const cssPath = vscode.Uri.file(path.join(context.extensionPath, 'static', 'styles.css'));
+
+    // Read the file contents
+    const htmlContent = fs.readFileSync(htmlPath.fsPath, 'utf-8');
+    const cssContent = fs.readFileSync(cssPath.fsPath, 'utf-8');
+    const jsUri = panel.webview.asWebviewUri(vscode.Uri.file(path.join(context.extensionPath, 'static', 'js', 'games.js')));
+
+    // Set the WebView's HTML content
+    panel.webview.html = htmlContent + "<style>" + cssContent + "</style>" + `<script src="${jsUri}"></script>`;
+  }));
+  
+  // File Bin
   context.subscriptions.push(vscode.commands.registerCommand('devDash.openFileShare', () => {
     const panel = vscode.window.createWebviewPanel(
       'fullWebView',
@@ -115,6 +141,7 @@ export function activate(context: vscode.ExtensionContext) {
     })
   );
 
+  // Reset Color
   context.subscriptions.push(vscode.commands.registerCommand('devDash.resetColor', () => {
     const settings = {
       "workbench.colorCustomizations": {}
