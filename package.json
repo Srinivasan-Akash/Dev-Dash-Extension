@@ -16,6 +16,17 @@
       {
         "language": "javascript",
         "path": "./snippets/javascript.json"
+      },
+      {
+        "language": "html",
+        "path": "./snippets/html.json"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "devDash.minify",
+        "key": "ctrl+m",
+        "when": "editorHasSelection"
       }
     ],
     "menus": {
