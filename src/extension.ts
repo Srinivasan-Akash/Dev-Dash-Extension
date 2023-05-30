@@ -141,11 +141,11 @@ export function activate(context: vscode.ExtensionContext) {
       editor.edit(editBuilder => {
         editBuilder.replace(selection, obfuscatedCode);
       });
-  
+
       vscode.window.showInformationMessage('Obfuscated The Code');
     }
   }));
-  
+
 
   // React Conversion
   context.subscriptions.push(vscode.commands.registerCommand('devDash.convertToReact', () => {
@@ -164,6 +164,38 @@ export function activate(context: vscode.ExtensionContext) {
 
     vscode.window.showInformationMessage("Converted To React Code");
   }));
+
+  // Snippet
+  vscode.commands.registerCommand('devDash.createSnippet', async () => {
+    const activeTextEditor = vscode.window.activeTextEditor;
+  
+    if (!activeTextEditor) {
+      vscode.window.showErrorMessage('No active text editor found.');
+      return;
+    }
+  
+    const selectedText = activeTextEditor.document.getText(activeTextEditor.selection);
+  
+    const snippetKey = await vscode.window.showInputBox({
+      prompt: 'Enter the snippet key',
+      placeHolder: 'e.g., mySnippet'
+    });
+  
+    if (!snippetKey) {
+      return;
+    }
+  
+    const snippetDescription = await vscode.window.showInputBox({
+      prompt: 'Enter the snippet description',
+      placeHolder: 'e.g., My custom snippet'
+    });
+  
+    if (!snippetDescription) {
+      return;
+    }
+   
+    vscode.window.showInformationMessage(`Snippet '${snippetKey}' created successfully!`);
+  });
 
   // Highlight Code
   let myDecorations: { decorationType: vscode.TextEditorDecorationType, range: vscode.Range } | undefined;

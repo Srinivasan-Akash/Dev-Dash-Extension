@@ -158,3 +158,4 @@ SUBMIT_BUTTON_SNIPPET.addEventListener('click', () => {
     SUBMIT_BUTTON_SNIPPET.innerText = "Submit Form";
   }
 });
+

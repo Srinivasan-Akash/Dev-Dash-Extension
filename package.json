@@ -12,6 +12,12 @@
   "activationEvents": [],
   "main": "./out/extension.js",
   "contributes": {
+    "snippets": [
+      {
+        "language": "javascript",
+        "path": "./snippets/javascript.json"
+      }
+    ],  
     "menus": {
       "editor/context": [
         {
@@ -21,6 +27,11 @@
         },
         {
           "command": "devDash.convertToReact",
+          "group": "1_modification",
+          "when": "editorHasSelection"
+        },
+        {
+          "command": "devDash.createSnippet",
           "group": "1_modification",
           "when": "editorHasSelection"
         },
@@ -50,6 +61,11 @@
       {
         "command": "devDash.obfuscateCode",
         "title": "Obfuscate Your Code From Dev Dash",
+        "category": "Dev Dash"
+      },
+      {
+        "command": "devDash.createSnippet",
+        "title": "Create A Snippet From Dev Dash",
         "category": "Dev Dash"
       },
       {
