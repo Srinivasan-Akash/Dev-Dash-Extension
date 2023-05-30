@@ -40,7 +40,7 @@ MOCK_DATA_SUBMIT_BTN.addEventListener('click', () => {
         .then((response) => response.text())
         .then((result) => {
             console.log(result);
-            document.querySelector(".data-mocking-screen").innerHTML += result;
+            document.querySelector(".data-mocking-screen").innerHTML += "<div class='result'>" + result + "</div>";
             // TODO:
         })
         .catch((error) => console.log("error", error));

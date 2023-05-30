@@ -12,6 +12,7 @@ const FILE_SHARING = document.querySelector(".fileSharing");
 const INTIAL_RUNNER = document.querySelector(".goToIntialRunner");
 const DATA_MOCKING_BTN = document.querySelector(".data-mocking-btn");
 const DATA_MOCKING_SCREEN = document.querySelector(".data-mocking-screen");
+const DOCUMENT_API_BTN = document.querySelector(".documentAPI");
 
 // Back Btns
 const GO_BACK_FROM_DEV_ENV = document.querySelector(".goBack-dev-env");
@@ -21,6 +22,7 @@ const GO_BACK_FROM_MINI_TOOLS = document.querySelector(".goBack-miniTools");
 const GO_BACK_FROM_CAPTURE = document.querySelector(".goBack-capture-window");
 const GO_BACK_FROM_INTIAL_RUNNER = document.querySelector(".goBack-initialRunner");
 const GO_BACK_FROM_DATA_MOCKING = document.querySelector(".GO_BACK_FROM_DATA_MOCKING");
+const GO_BACK_FROM_DOCUMENT_API = document.querySelector(".GO_BACK_FROM_DOCUMENTATION");
 
 TODO.addEventListener('click', () => vscode.postMessage({ command: 'openTodo' }));
 FILE_SHARING.addEventListener('click', () => vscode.postMessage({ command: 'openFileSharing' }));
@@ -41,6 +43,7 @@ const GITHUB_VIEW = document.querySelector(".github-view");
 const CAPTURE_WINDOW = document.querySelector(".capture-window");
 const DEV_ENV_WINDOW = document.querySelector(".dev-env");
 const INITIAL_RUNNER_SCREEN = document.querySelector(".initialRunner");
+const DOCUMENT_API_SCREEN = document.querySelector(".documentAPI-screen");
 
 // Props
 const RED_NEON_BLOB = document.querySelector(".red");
@@ -94,6 +97,9 @@ GO_BACK_FROM_INTIAL_RUNNER.addEventListener('click', () => back(DASHBOARD_SCREEN
 DATA_MOCKING_BTN.addEventListener('click', () => goTo(DASHBOARD_SCREEN, DATA_MOCKING_SCREEN));
 GO_BACK_FROM_DATA_MOCKING.addEventListener('click', () => back(DASHBOARD_SCREEN, DATA_MOCKING_SCREEN));
 
+// From & To (DOCUMENT_API to Dashboard)
+DOCUMENT_API_BTN.addEventListener('click', () => goTo(DASHBOARD_SCREEN, DOCUMENT_API_SCREEN));
+GO_BACK_FROM_DOCUMENT_API.addEventListener('click', () => back(DASHBOARD_SCREEN, DOCUMENT_API_SCREEN));
 
 // GET JOKE
 function getJoke() {
