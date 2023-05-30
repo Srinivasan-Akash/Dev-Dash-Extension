@@ -39,6 +39,15 @@ export function activate(context: vscode.ExtensionContext) {
         enableFindWidget: true, // Enable find widget in the WebView
       }
     );
+    panel.webview.onDidReceiveMessage((message) => {
+      if (message.command === "authFailed") {
+        vscode.window.showErrorMessage("Sign Up Failed.");
+      }
+
+      if (message.command === "authFinished") {
+        vscode.window.showInformationMessage("Sign Up Sucessfull.");
+      }
+    });
     // Set the WebView's HTML content to occupy the whole space
     const htmlPath = vscode.Uri.file(path.join(context.extensionPath, 'static', "views", 'todo.html'));
     const cssPath = vscode.Uri.file(path.join(context.extensionPath, 'static', 'styles.css'));

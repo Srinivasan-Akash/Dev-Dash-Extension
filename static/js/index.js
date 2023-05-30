@@ -13,6 +13,7 @@ const INTIAL_RUNNER = document.querySelector(".goToIntialRunner");
 const DATA_MOCKING_BTN = document.querySelector(".data-mocking-btn");
 const DATA_MOCKING_SCREEN = document.querySelector(".data-mocking-screen");
 const DOCUMENT_API_BTN = document.querySelector(".documentAPI");
+const DEAD_CODE_BTN = document.querySelector(".dead-code");
 
 // Back Btns
 const GO_BACK_FROM_DEV_ENV = document.querySelector(".goBack-dev-env");
@@ -23,6 +24,7 @@ const GO_BACK_FROM_CAPTURE = document.querySelector(".goBack-capture-window");
 const GO_BACK_FROM_INTIAL_RUNNER = document.querySelector(".goBack-initialRunner");
 const GO_BACK_FROM_DATA_MOCKING = document.querySelector(".GO_BACK_FROM_DATA_MOCKING");
 const GO_BACK_FROM_DOCUMENT_API = document.querySelector(".GO_BACK_FROM_DOCUMENTATION");
+const GO_BACK_FROM_DEAD_CODE = document.querySelector(".GO_BACK_FROM_DEAD_CODE");
 
 TODO.addEventListener('click', () => vscode.postMessage({ command: 'openTodo' }));
 FILE_SHARING.addEventListener('click', () => vscode.postMessage({ command: 'openFileSharing' }));
@@ -44,6 +46,7 @@ const CAPTURE_WINDOW = document.querySelector(".capture-window");
 const DEV_ENV_WINDOW = document.querySelector(".dev-env");
 const INITIAL_RUNNER_SCREEN = document.querySelector(".initialRunner");
 const DOCUMENT_API_SCREEN = document.querySelector(".documentAPI-screen");
+const DEAD_CODE_SCREEN = document.querySelector(".dead-code-screen");
 
 // Props
 const RED_NEON_BLOB = document.querySelector(".red");
@@ -101,6 +104,10 @@ GO_BACK_FROM_DATA_MOCKING.addEventListener('click', () => back(DASHBOARD_SCREEN,
 DOCUMENT_API_BTN.addEventListener('click', () => goTo(DASHBOARD_SCREEN, DOCUMENT_API_SCREEN));
 GO_BACK_FROM_DOCUMENT_API.addEventListener('click', () => back(DASHBOARD_SCREEN, DOCUMENT_API_SCREEN));
 
+// From & To (GetWebsiteInfo To Dashboard)
+DEAD_CODE_BTN.addEventListener('click', () => goTo(DASHBOARD_SCREEN, DEAD_CODE_SCREEN));
+GO_BACK_FROM_DEAD_CODE.addEventListener('click', () => back(DASHBOARD_SCREEN, DEAD_CODE_SCREEN));
+
 // GET JOKE
 function getJoke() {
   fetch("https://type.fit/api/quotes")
@@ -136,4 +143,22 @@ EMAIL_SUBMIT_BUTTON.addEventListener('click', () => {
       EMAIL_SUBMIT_BUTTON.innerText = "Operation Failed !!";
       setTimeout(() => EMAIL_SUBMIT_BUTTON.innerText = "Submit Form", 2000);
     });
+});
+
+// Dead Code
+const HTML_PATH = document.querySelector("#html-input");
+const CSS_PATH = document.querySelector("#css-input");
+const JS_PATH = document.querySelector("#js-input");
+const WHITELIST_CLASSES = document.querySelector("#classes-input");
+const DEAD_CSS_SUBMIT_BTN = document.querySelector(".submit-dead-css");
+
+DEAD_CSS_SUBMIT_BTN.addEventListener('click', () => {
+    const htmlPaths = HTML_PATH.value.split(",");
+    const cssPaths = CSS_PATH.value.split(",");
+    const jsPaths = JS_PATH.value.split(",");
+
+    const paths = htmlPaths.concat(cssPaths, jsPaths);
+    const whitelist = WHITELIST_CLASSES.value.split(",");
+    console.log(paths, whitelist);
+    vscode.postMessage({ command: 'dead-css', paths: paths, whitelist: whitelist });
 });

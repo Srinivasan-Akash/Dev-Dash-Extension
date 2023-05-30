@@ -235,7 +235,7 @@ nav div {
   cursor: pointer;
 }
 
-.data-mocking-screen .share-feature, .documentAPI-screen .share-feature {
+.data-mocking-screen .share-feature, .documentAPI-screen .share-feature, .dead-code-screen .share-feature {
   margin: 1em 0 0 0;
   width: 100%;
 }

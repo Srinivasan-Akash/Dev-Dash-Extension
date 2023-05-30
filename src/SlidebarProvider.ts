@@ -16,22 +16,19 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
       localResourceRoots: [this._extensionUri],
     };
 
-    webviewView.webview.onDidReceiveMessage(async (message) => {
-
-      if (message.command === "authFailed") {
-        vscode.window.showErrorMessage("Sign Up Failed.");
-      }
-
-      if (message.command === "authFinished") {
-        vscode.window.showInformationMessage("Sign Up Sucessfull.");
+    webviewView.webview.onDidReceiveMessage((message) => {
+      console.log(message.command)
+      if(message.command === "dead-css") {
+        console.log(message.paths, message.whitelist);
+        console.log("DONE");
       }
 
       if (message.command === "openTodo") {
-        await vscode.commands.executeCommand('devDash.openToDo');
+        (async () => await vscode.commands.executeCommand('devDash.openToDo'))();
       }
 
       if(message.command === "openFileSharing") {
-        await vscode.commands.executeCommand('devDash.openFileShare');
+        (async () => await vscode.commands.executeCommand('devDash.openFileShare'))();
       }
 
 
@@ -181,6 +178,7 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
 
   private _getHtmlForWebview(webview: vscode.Webview) {
     const staticFolderPath = path.join(this._extensionUri.fsPath, "static");
+  
     const indexPath = path.join(staticFolderPath, "index.html");
     const stylesPath = path.join(staticFolderPath, "styles.css");
     const scriptsPath = path.join(staticFolderPath, "js", "index.js");
@@ -190,8 +188,7 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
     const intialRunnerScript = path.join(staticFolderPath, "js", "intialRunner.js");
     const mockDataScript = path.join(staticFolderPath, "js", "data-mocking.js");
     const documentApiScript = path.join(staticFolderPath, "js", "documentAPI.js");
-
-
+  
     const cssCode = fs.readFileSync(stylesPath, 'utf8');
     const htmlCode = fs.readFileSync(indexPath, "utf8");
     const scriptsUri = webview.asWebviewUri(vscode.Uri.file(scriptsPath));
@@ -201,7 +198,16 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
     const mockDataUri = webview.asWebviewUri(vscode.Uri.file(mockDataScript));
     const intialRunnerUri = webview.asWebviewUri(vscode.Uri.file(intialRunnerScript));
     const documentAPIUri = webview.asWebviewUri(vscode.Uri.file(documentApiScript));
-
-    return htmlCode + `<style> ${cssCode} </style>` + `<script src="${scriptsUri}"> </script>` + `<script src="${techStackUri}"> </script>` + `<script src="${snippetUri}"> </script>` + `<script src="${createDevelopmentUri}"> </script>` + `<script src="${intialRunnerUri}"> </script>` + `<script src="${mockDataUri}"> </script>` + `<script src="${documentAPIUri}"> </script>`;
+    console.log("loaded")
+    
+    return htmlCode +
+      `<style>${cssCode}</style>` +
+      `<script src="${scriptsUri}"></script>` +
+      `<script src="${techStackUri}"></script>` +
+      `<script src="${snippetUri}"></script>` +
+      `<script src="${createDevelopmentUri}"></script>` +
+      `<script src="${intialRunnerUri}"></script>` +
+      `<script src="${mockDataUri}"></script>` +
+      `<script src="${documentAPIUri}"></script>`;
   }
 }

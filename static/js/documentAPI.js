@@ -5,7 +5,7 @@ const API_DOC_SUBMIT = document.querySelector(".submit-apiDoc");
 API_DOC_SUBMIT.addEventListener('click', () => {
     // Value
     const API_ROUTE_CODE = CODE_INPUT.value;
-    const prompt = `Document this API Route it should contain request schema, response schema with examples code on how to use it. ${API_ROUTE_CODE}`
+    const prompt = `Document this API Route it should contain request schema, response schema with examples code on how to use it. ${API_ROUTE_CODE}`;
     
     const HEADERS = new Headers();
     HEADERS.append("Authorization","Bearer " + GPT_KEY);
