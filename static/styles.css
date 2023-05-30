@@ -235,6 +235,11 @@ nav div {
   cursor: pointer;
 }
 
+.data-mocking-screen .share-feature {
+  margin: 1em 0 0 0;
+  width: 100%;
+}
+
 .share-feature {
   width: 90%;
   border-radius: 10px;
@@ -741,4 +746,12 @@ input {
     width: 100%;
     flex-direction: row;
     justify-content: space-around;
+}
+
+a {
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 }

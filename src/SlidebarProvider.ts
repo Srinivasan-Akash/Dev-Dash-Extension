@@ -188,6 +188,8 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
     const getSnippetScript = path.join(staticFolderPath, "js", "getSnippet.js");
     const createDevEnvScript = path.join(staticFolderPath, "js", "createDevEnvironment.js");
     const intialRunnerScript = path.join(staticFolderPath, "js", "intialRunner.js");
+    const mockDataScript = path.join(staticFolderPath, "js", "data-mocking.js");
+    const documentApiScript = path.join(staticFolderPath, "js", "documentAPI.js");
 
 
     const cssCode = fs.readFileSync(stylesPath, 'utf8');
@@ -196,8 +198,10 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
     const techStackUri = webview.asWebviewUri(vscode.Uri.file(getTechStackScript));
     const snippetUri = webview.asWebviewUri(vscode.Uri.file(getSnippetScript));
     const createDevelopmentUri = webview.asWebviewUri(vscode.Uri.file(createDevEnvScript));
+    const mockDataUri = webview.asWebviewUri(vscode.Uri.file(mockDataScript));
     const intialRunnerUri = webview.asWebviewUri(vscode.Uri.file(intialRunnerScript));
+    const documentAPIUri = webview.asWebviewUri(vscode.Uri.file(documentApiScript));
 
-    return htmlCode + `<style> ${cssCode} </style>` + `<script src="${scriptsUri}"> </script>` + `<script src="${techStackUri}"> </script>` + `<script src="${snippetUri}"> </script>` + `<script src="${createDevelopmentUri}"> </script>` + `<script src="${intialRunnerUri}"> </script>`;
+    return htmlCode + `<style> ${cssCode} </style>` + `<script src="${scriptsUri}"> </script>` + `<script src="${techStackUri}"> </script>` + `<script src="${snippetUri}"> </script>` + `<script src="${createDevelopmentUri}"> </script>` + `<script src="${intialRunnerUri}"> </script>` + `<script src="${mockDataUri}"> </script>` + `<script src="${documentAPIUri}"> </script>`;
   }
 }

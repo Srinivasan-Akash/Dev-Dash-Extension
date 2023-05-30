@@ -10,6 +10,8 @@ const DEV_ENV_BUTTON = document.querySelector(".dev-env-btn");
 const TODO = document.querySelector(".todo");
 const FILE_SHARING = document.querySelector(".fileSharing");
 const INTIAL_RUNNER = document.querySelector(".goToIntialRunner");
+const DATA_MOCKING_BTN = document.querySelector(".data-mocking-btn");
+const DATA_MOCKING_SCREEN = document.querySelector(".data-mocking-screen");
 
 // Back Btns
 const GO_BACK_FROM_DEV_ENV = document.querySelector(".goBack-dev-env");
@@ -18,6 +20,7 @@ const GO_BACK_FROM_WEBSITE_INFO = document.querySelector(".goBack-websiteInfo");
 const GO_BACK_FROM_MINI_TOOLS = document.querySelector(".goBack-miniTools");
 const GO_BACK_FROM_CAPTURE = document.querySelector(".goBack-capture-window");
 const GO_BACK_FROM_INTIAL_RUNNER = document.querySelector(".goBack-initialRunner");
+const GO_BACK_FROM_DATA_MOCKING = document.querySelector(".GO_BACK_FROM_DATA_MOCKING");
 
 TODO.addEventListener('click', () => vscode.postMessage({ command: 'openTodo' }));
 FILE_SHARING.addEventListener('click', () => vscode.postMessage({ command: 'openFileSharing' }));
@@ -86,6 +89,11 @@ GO_BACK_FROM_GITHUB_VIEW.addEventListener('click', () => back(DASHBOARD_SCREEN, 
 // From & To (INTIAL_RUNNER to Dashboard)
 INTIAL_RUNNER.addEventListener('click', () => goTo(DASHBOARD_SCREEN, INITIAL_RUNNER_SCREEN));
 GO_BACK_FROM_INTIAL_RUNNER.addEventListener('click', () => back(DASHBOARD_SCREEN, INITIAL_RUNNER_SCREEN));
+
+// From & To (DATA_MOCKING to Dashboard)
+DATA_MOCKING_BTN.addEventListener('click', () => goTo(DASHBOARD_SCREEN, DATA_MOCKING_SCREEN));
+GO_BACK_FROM_DATA_MOCKING.addEventListener('click', () => back(DASHBOARD_SCREEN, DATA_MOCKING_SCREEN));
+
 
 // GET JOKE
 function getJoke() {
