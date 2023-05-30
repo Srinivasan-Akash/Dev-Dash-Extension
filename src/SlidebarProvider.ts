@@ -18,7 +18,7 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
 
     webviewView.webview.onDidReceiveMessage((message) => {
       if (message.command === 'dead-css') {
-        
+        // TODO:
       }
 
       if (message.command === "openTodo") {
