@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Card preview</title>
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+  integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+  crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    body{
+      text-align: center;
+      background-color: #16181b;
+      
+    }
+    .social-card {
+      width: 600px;
+      border-radius: 10px;
+      overflow: hidden;
+      padding: 1%;
+      margin: 0 auto;
+    }
+
+    .card {
+      background-color: #222831;
+      /* height: 37rem; */
+      /* border-radius: 5px; */
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      box-shadow: rgba(0, 0, 0, 0.7);
+      color: white;
+      border-radius: 10px;
+    }
+
+    .card__name {
+      margin-top: 15px;
+      font-size: 1.5em;
+    }
+
+    .card__image {
+      height: 160px;
+      width: 160px;
+      border-radius: 50%;
+      border: 5px solid #272133;
+      margin-top: 20px;
+      box-shadow: 0 10px 50px rgba(235, 25, 110, 1);
+    }
+
+    .social-icons {
+      padding: 0;
+      list-style: none;
+      margin: 1em;
+    }
+
+    .social-icons li {
+      display: inline-block;
+      margin: 0.15em;
+      position: relative;
+      font-size: 1em;
+    }
+
+    .social-icons i {
+      color: #fff;
+      position: absolute;
+      top: 0.95em;
+      left: 0.96em;
+      transition: all 265ms ease-out;
+    }
+
+    .social-icons a {
+      display: inline-block;
+    }
+
+    .social-icons a:before {
+      transform: scale(1);
+      -ms-transform: scale(1);
+      -webkit-transform: scale(1);
+      content: " ";
+      width: 45px;
+      height: 45px;
+      border-radius: 100%;
+      display: block;
+      background: linear-gradient(45deg, #ff003c, #c648c8);
+      transition: all 265ms ease-out;
+    }
+
+    .social-icons a:hover:before {
+      transform: scale(0);
+      transition: all 265ms ease-in;
+    }
+
+    .social-icons a:hover i {
+      transform: scale(2.2);
+      -ms-transform: scale(2.2);
+      -webkit-transform: scale(2.2);
+      color: #ff003c;
+      background: -webkit-linear-gradient(45deg, #ff003c, #c648c8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      transition: all 265ms ease-in;
+    }
+
+    .grid-container {
+      display: grid;
+      /* grid-template-columns: 1fr 1fr; */
+      grid-gap: 20px;
+      font-size: 1.2em;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="social-card" id="social-card" data-tilt data-tilt-max="50" data-tilt-speed="400"
+    data-tilt-perspective="500">
+    <div class="card">
+      <img id="imageElement" src="" alt="Person" class="card__image">
+      <p class="card__name" id="card_name"> hh</p>
+      <div class="grid-container">
+        <div class="grid-child-posts" id="card_email">
+        </div>
+      </div>
+      <ul class="social-icons" id="social_icons">
+
+      </ul>
+    </div>
+  </div>
+  <script type="text/javascript" src="vanilla-tilt.js"></script>
+  <script src="preview.js"></script>
+</body>
+
+</html>

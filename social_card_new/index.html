@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="form_style.css">
+    
+    <script src="https://cdn.jsdelivr.net/npm/appwrite@11.0.0"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+    <div class="social_container">
+        <div class="form-style-5">
+            <form id="form" enctype="multipart/form-data">
+                <fieldset>
+                    <legend><span class="number">1</span> Candidate Info</legend>
+                    <input type="text" name="field1" id="name" placeholder="Your Name *" required>
+                    <input type="email" name="field2" id="email" placeholder="Your Email *" required>
+
+                    <input type="text" name="field3" id="interest" placeholder="Interests *" required>
+                    <input type="file" id="imageInput" name="image" accept="image/*" required>
+
+                </fieldset>
+                <fieldset>
+                    <legend><span class="number">2</span> Social Info</legend>
+                    <input type="url" name="facebok" id="facebook" placeholder="facebook">
+                    <input type="url" name="twitter" id="twitter" placeholder="twitter">
+                    <input type="url" name="linkedin" id="linkedin" placeholder="likedin">
+                    <input type="url" name="instagram" id="instagram" placeholder="instagram">
+                </fieldset>
+                <input class="btn draw-border" type="submit" value="Apply" />
+            </form>
+        </div>
+        <div class="social-card" data-tilt data-tilt-max="50" data-tilt-speed="400" data-tilt-perspective="500">
+            <div class="card">
+                <img id="imageElement"
+                    src="https://lh3.googleusercontent.com/ytP9VP86DItizVX2YNA-xTYzV09IS7rh4WexVp7eilIcfHmm74B7odbcwD5DTXmL0PF42i2wnRKSFPBHlmSjCblWHDCD2oD1oaM1CGFcSd48VBKJfsCi4bS170PKxGwji8CPmehwPw=w200-h247-no"
+                    alt="Person" class="card__image">
+                <p class="card__name" id="card_name">  </p>
+                <div class="grid-container">
+                    <div class="grid-child-posts" id="card_email">
+                
+                    </div>
+                </div>
+                <ul class="social-icons" id="social_icons">
+                   
+                </ul>
+
+
+            </div>
+        </div>
+        <button class="btn draw-border" id="copy_link">Copy link</button>
+    </div>
+
+    <script type="text/javascript" src="vanilla-tilt.js"></script>
+    
+</body>
+<script src="https://cdn.jsdelivr.net/npm/appwrite@11.0.0"></script>
+    <script>
+        const { Client, Storage,Account, ID } = Appwrite;
+    </script>
+<script src="index.js"></script>    
+</html>
