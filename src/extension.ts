@@ -74,16 +74,33 @@ export function activate(context: vscode.ExtensionContext) {
       }
     );
 
-    // Set the WebView's HTML content to occupy the whole space
     const htmlPath = vscode.Uri.file(path.join(context.extensionPath, 'static', "views", 'miniTools.html'));
     const cssPath = vscode.Uri.file(path.join(context.extensionPath, 'static', 'styles.css'));
 
-    // Read the file contents
     const htmlContent = fs.readFileSync(htmlPath.fsPath, 'utf-8');
     const cssContent = fs.readFileSync(cssPath.fsPath, 'utf-8');
 
-    // Set the WebView's HTML content
     panel.webview.html = htmlContent + "<style>" + cssContent + "</style>";
+  }));
+
+  // Start of Social Card
+  context.subscriptions.push(vscode.commands.registerCommand('devDash.openSocialCard', () => {
+    // Create a new WebView panel
+    const panel = vscode.window.createWebviewPanel(
+      'fullWebView',
+      'Mini Tools From Dev-Dash',
+      vscode.ViewColumn.One, // Choose the column to show the new WebView
+      {
+        enableScripts: true, // Enable scripts in the WebView
+        retainContextWhenHidden: true, // Keep the WebView's context when it's hidden
+        enableFindWidget: true, // Enable find widget in the WebView
+      }
+    );
+
+    const htmlPath = vscode.Uri.file(path.join(context.extensionPath, 'static', "views", 'socialCard.html'));
+
+    const htmlContent = fs.readFileSync(htmlPath.fsPath, 'utf-8');
+    panel.webview.html = htmlContent;
   }));
 
   // Start of Games

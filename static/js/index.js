@@ -15,6 +15,8 @@ const DATA_MOCKING_SCREEN = document.querySelector(".data-mocking-screen");
 const DOCUMENT_API_BTN = document.querySelector(".documentAPI");
 const DEAD_CODE_BTN = document.querySelector(".dead-code");
 const GAMES_BTN = document.querySelector(".games");
+const SOCIAL_CARD_BTN = document.querySelector(".openSocialCard");
+
 // Back Btns
 const GO_BACK_FROM_DEV_ENV = document.querySelector(".goBack-dev-env");
 const GO_BACK_FROM_GITHUB_VIEW = document.querySelector(".goBack-gitubView");
@@ -29,6 +31,8 @@ const GO_BACK_FROM_DEAD_CODE = document.querySelector(".GO_BACK_FROM_DEAD_CODE")
 TODO.addEventListener('click', () => vscode.postMessage({ command: 'openTodo' }));
 FILE_SHARING.addEventListener('click', () => vscode.postMessage({ command: 'openFileSharing' }));
 GAMES_BTN.addEventListener('click', () => vscode.postMessage({ command: 'openGames' }));
+SOCIAL_CARD_BTN.addEventListener('click', () => vscode.postMessage({ command: 'openSocialCard' }));
+
 // Email Form elements
 const EMAIL_SUBMIT_BUTTON = document.querySelector(".share-feature button");
 const NAME_INPUT = document.querySelector("#name-input");
