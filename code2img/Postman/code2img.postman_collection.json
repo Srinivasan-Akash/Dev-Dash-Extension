@@ -1,0 +1,95 @@
+{
+	"info": {
+		"_postman_id": "700f5bfe-5147-4658-9b1a-d776a55c9100",
+		"name": "code2img",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get image",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "/*\n * 🔥🔥 Generated using code2img 🔥🔥\n */\nimport java.util.*; \nclass FizzBuzz \n{ \n    public static void main(String args[]) \n    {  \n        int n = 100; \n  \n        // loop for 100 times \n        for (int i=1; i<=n; i++)                                  \n        { \n            if (i%15==0)                                                  \n                System.out.print(\"FizzBuzz\"+\" \");  \n            // number divisible by 5, print 'Buzz'  \n            // in place of the number \n            else if (i%5==0)      \n                System.out.print(\"Buzz\"+\" \");  \n  \n            // number divisible by 3, print 'Fizz'  \n            // in place of the number \n            else if (i%3==0)      \n                System.out.print(\"Fizz\"+\" \");  \n  \n            // number divisible by 15(divisible by \n            // both 3 & 5), print 'FizzBuzz' in  \n            // place of the number \n                  \n            else // print the numbers \n                System.out.print(i+\" \");                          \n        } \n    } \n} "
+				},
+				"url": {
+					"raw": "{{baseUrl}}/api/to-image?language=java&theme=atom-dark&line-numbers=false&background-color=radial-gradient(circle, rgba(63,94,251,1) 0%, rgba(252,70,107,1) 100%)&background-image=https://picsum.photos/1920/1080&padding=4",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"to-image"
+					],
+					"query": [
+						{
+							"key": "language",
+							"value": "java",
+							"description": "Name of the programming language"
+						},
+						{
+							"key": "theme",
+							"value": "atom-dark",
+							"description": "Name of the color theme"
+						},
+						{
+							"key": "line-numbers",
+							"value": "false",
+							"description": "Show/Hide line numbers . Default is false"
+						},
+						{
+							"key": "scale",
+							"value": "2",
+							"description": "Image Quality, should be in the range 1-5. Default is 2",
+							"disabled": true
+						},
+						{
+							"key": "background-color",
+							"value": "radial-gradient(circle, rgba(63,94,251,1) 0%, rgba(252,70,107,1) 100%)",
+							"description": "Any valid value for the css property background. Example: \"red\", \"rgb(0, 255, 0)\", etc"
+						},
+						{
+							"key": "background-image",
+							"value": "https://picsum.photos/1920/1080",
+							"description": "URL for background image"
+						},
+						{
+							"key": "show-background",
+							"value": "false",
+							"description": "Show/Hide background",
+							"disabled": true
+						},
+						{
+							"key": "padding",
+							"value": "4",
+							"description": "Padding between background and the window outline"
+						}
+					]
+				},
+				"description": "Provide code snippet in the request body."
+			},
+			"response": []
+		},
+		{
+			"name": "Get list of available themes",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "{{baseUrl}}/api/themes"
+			},
+			"response": []
+		},
+		{
+			"name": "Get list of available languages",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "{{baseUrl}}/api/languages"
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
