@@ -1,4 +1,4 @@
-const axios = require("axios")
+const axios = require("axios");
 
 async function getTechStack(url) {
     const options = {
@@ -12,11 +12,11 @@ async function getTechStack(url) {
     }
 
     try {
-        const response = await axios.request(options)
-        return response
+        const response = await axios.request(options);
+        return response;
     } catch (error) {
-        return error
+        return error;
     }
 }
 
-module.exports = getTechStack
+module.exports = getTechStack;

@@ -1,5 +1,5 @@
 // inputs
-const CODE_INPUT = document.querySelector(".code-input");
+const CODE_INPUT = document.querySelector("#code-input");
 const API_DOC_SUBMIT = document.querySelector(".submit-apiDoc");
 
 API_DOC_SUBMIT.addEventListener('click', () => {
@@ -9,7 +9,7 @@ API_DOC_SUBMIT.addEventListener('click', () => {
     API_DOC_SUBMIT.innerText = "Loading...";
 
     const HEADERS = new Headers();
-    HEADERS.append("Authorization", "Bearer API Key");
+    HEADERS.append("Authorization", "Bearer key");
     HEADERS.append("Content-Type", "application/json");
 
     // API BODY
@@ -33,13 +33,18 @@ API_DOC_SUBMIT.addEventListener('click', () => {
     fetch("https://api.openai.com/v1/chat/completions", requestOptions)
         .then((response) => response.json()) // Parse response as JSON
         .then((result) => {
-            console.log(result);
             const content = result.choices[0].message.content;
-            const items = JSON.parse(content);
-            document.querySelector(".data-mocking-screen").innerHTML += "<div class='result'><pre>" + JSON.stringify(items, null, 2) + "</pre></div>";
+
+            console.log(content);
+
+            document.querySelector(".documentAPI-screen").innerHTML +=
+                "<div class='result'><pre>" + content + "</pre></div>";
         })
         .catch((error) => console.log("error", error))
         .finally(() => {
             API_DOC_SUBMIT.innerText = "Submit Form";
         });
+
+
+
 })

@@ -2,7 +2,7 @@ const TOPIC_INPUT = document.querySelector(".data-mocking-screen #topic-input");
 const STRUCTURE_INPUT = document.querySelector(".data-mocking-screen #structure-input");
 const NUMBER_ENTRIES = document.querySelector("#number-input");
 const MOCK_DATA_SUBMIT_BTN = document.querySelector(".submit-mock-data");
-const GPT_KEY = "Bearer API Key";
+const GPT_KEY = "Bearer key";
 
 MOCK_DATA_SUBMIT_BTN.addEventListener('click', () => {
     console.log("clicked")
