@@ -28,12 +28,12 @@ function isAuthenticated() {
     
     accountDetails.then((res) => {
         SIGN_IN_PAGE_IFRAME.style.display = "none";
-        EXCALI_DRAW_IFRAME.style.display = "block";
+        EXCALI_DRAW_IFRAME.style.display = "flex";
         LOADING.style.display = "none";
         vscode.postMessage({ command: "authFinished" });
     },
     (err) => {
-        SIGN_IN_PAGE_IFRAME.style.display = "block";
+        SIGN_IN_PAGE_IFRAME.style.display = "flex";
         EXCALI_DRAW_IFRAME.style.display = "none";
         LOADING.style.display = "none";
     })
@@ -45,7 +45,7 @@ SIGN_IN_EMAIL_PASSWORD_BTN.addEventListener('click', () => {
     const promise = account.create(generateUUID(), EMAIL_INPUT.value, PASSWORD_INPUT.value, NAME_INPUT.value)
     promise.then(async (response) => {
         SIGN_IN_PAGE_IFRAME.style.display = "none";
-        EXCALI_DRAW_IFRAME.style.display = "block";
+        EXCALI_DRAW_IFRAME.style.display = "flex";
         vscode.postMessage({ command: "authFinished" });
         await account.createEmailSession(EMAIL_INPUT.value, PASSWORD_INPUT.value);
     })
