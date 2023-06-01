@@ -21,6 +21,10 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
         // TODO: Remove Dead Code
       }
 
+      if (message.command === 'openTools') {
+        (async () => await vscode.commands.executeCommand('devDash.openMiniTools'))();
+      }
+
       if (message.command === 'openGames') {
         (async () => await vscode.commands.executeCommand('devDash.openGames'))();
       }

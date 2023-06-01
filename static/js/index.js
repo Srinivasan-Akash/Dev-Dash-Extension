@@ -80,8 +80,11 @@ GO_BACK_FROM_WEBSITE_INFO.addEventListener('click', () => back(DASHBOARD_SCREEN,
 DEV_ENV_BUTTON.addEventListener('click', () => goTo(DASHBOARD_SCREEN, DEV_ENV_WINDOW));
 GO_BACK_FROM_DEV_ENV.addEventListener('click', () => back(DASHBOARD_SCREEN, DEV_ENV_WINDOW));
 
-// From & To (miniTools To Dashboard)
-MINI_TOOLS_BUTTON.addEventListener('click', () => goTo(DASHBOARD_SCREEN, MINI_TOOLS));
+// From & To (miniTools To Dashboard) TODO:
+MINI_TOOLS_BUTTON.addEventListener('click', () => {
+  goTo(DASHBOARD_SCREEN, MINI_TOOLS);
+  vscode.postMessage({ command: 'openTools' });
+});
 GO_BACK_FROM_MINI_TOOLS.addEventListener('click', () => back(DASHBOARD_SCREEN, MINI_TOOLS));
 
 // From & To (Capture To Dashboard)

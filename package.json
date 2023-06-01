@@ -90,6 +90,11 @@
         "category": "Dev Dash"
       },
       {
+        "command": "devDash.openMiniTools",
+        "title": "Mini Tools From Dev Dash",
+        "category": "Dev Dash"
+      },
+      {
         "command": "devDash.openFileShare",
         "title": "Open File-Bin From Dev Dash",
         "category": "Dev Dash"

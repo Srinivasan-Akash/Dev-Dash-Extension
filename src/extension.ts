@@ -60,6 +60,32 @@ export function activate(context: vscode.ExtensionContext) {
     panel.webview.html = htmlContent + "<style>" + cssContent + "</style>" + `<script src="${jsUri}"></script>`;
   }));
 
+  // Start of Mini Tools
+  context.subscriptions.push(vscode.commands.registerCommand('devDash.openMiniTools', () => {
+    // Create a new WebView panel
+    const panel = vscode.window.createWebviewPanel(
+      'fullWebView',
+      'Mini Tools From Dev-Dash',
+      vscode.ViewColumn.One, // Choose the column to show the new WebView
+      {
+        enableScripts: true, // Enable scripts in the WebView
+        retainContextWhenHidden: true, // Keep the WebView's context when it's hidden
+        enableFindWidget: true, // Enable find widget in the WebView
+      }
+    );
+
+    // Set the WebView's HTML content to occupy the whole space
+    const htmlPath = vscode.Uri.file(path.join(context.extensionPath, 'static', "views", 'miniTools.html'));
+    const cssPath = vscode.Uri.file(path.join(context.extensionPath, 'static', 'styles.css'));
+
+    // Read the file contents
+    const htmlContent = fs.readFileSync(htmlPath.fsPath, 'utf-8');
+    const cssContent = fs.readFileSync(cssPath.fsPath, 'utf-8');
+
+    // Set the WebView's HTML content
+    panel.webview.html = htmlContent + "<style>" + cssContent + "</style>";
+  }));
+
   // Start of Games
   context.subscriptions.push(vscode.commands.registerCommand('devDash.openGames', () => {
     // Create a new WebView panel
@@ -85,7 +111,7 @@ export function activate(context: vscode.ExtensionContext) {
     // Set the WebView's HTML content
     panel.webview.html = htmlContent + "<style>" + cssContent + "</style>" + `<script src="${jsUri}"></script>`;
   }));
-  
+
   // File Bin
   context.subscriptions.push(vscode.commands.registerCommand('devDash.openFileShare', () => {
     const panel = vscode.window.createWebviewPanel(
@@ -204,32 +230,32 @@ export function activate(context: vscode.ExtensionContext) {
   // Snippet
   vscode.commands.registerCommand('devDash.createSnippet', async () => {
     const activeTextEditor = vscode.window.activeTextEditor;
-  
+
     if (!activeTextEditor) {
       vscode.window.showErrorMessage('No active text editor found.');
       return;
     }
-  
+
     const selectedText = activeTextEditor.document.getText(activeTextEditor.selection);
-  
+
     const snippetKey = await vscode.window.showInputBox({
       prompt: 'Enter the snippet key',
       placeHolder: 'e.g., mySnippet'
     });
-  
+
     if (!snippetKey) {
       return;
     }
-  
+
     const snippetDescription = await vscode.window.showInputBox({
       prompt: 'Enter the snippet description',
       placeHolder: 'e.g., My custom snippet'
     });
-  
+
     if (!snippetDescription) {
       return;
     }
-   
+
     vscode.window.showInformationMessage(`Snippet '${snippetKey}' created successfully!`);
   });
 

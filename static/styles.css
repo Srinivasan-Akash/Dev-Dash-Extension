@@ -425,6 +425,10 @@ input {
   padding-bottom: 1em;
 }
 
+.data-mocking-screen .result, .documentAPI-screen .result {
+  padding: 1em;
+}
+
 .companyInfo {
   display: flex;
   align-items: center;
