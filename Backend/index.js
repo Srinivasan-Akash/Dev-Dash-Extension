@@ -23,13 +23,13 @@ app.get('/getTechStack', async (req, res) => {
 
 app.get('/getMultiMedia', async (req, res) => {
   const url = req.query.url;
-  console.log(url)
+  console.log(url);
   
-  const output = await getMultiMedia(url)
-  res.json(output)
+  const output = await getMultiMedia(url);
+  res.json(output);
 });
 
 // Start the server
-app.listen(3000, () => {
+app.listen(3001, () => {
   console.log('Server is running on port 3000');
 });
