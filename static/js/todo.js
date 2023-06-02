@@ -9,7 +9,7 @@ const NAME_INPUT = document.querySelector(".excali .name");
 // client_appwrite
 function generateUUID() {
     const min = 1000;
-    const max = 9999999999999999;
+    const max = 9999999999999999n;
     const randomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
     const uuid = randomNumber.toString().padStart(4, '0');
     return uuid;
@@ -36,13 +36,13 @@ function isAuthenticated() {
         SIGN_IN_PAGE_IFRAME.style.display = "flex";
         EXCALI_DRAW_IFRAME.style.display = "none";
         LOADING.style.display = "none";
-    })
+    });
 }
 
-isAuthenticated()
+isAuthenticated();
 
 SIGN_IN_EMAIL_PASSWORD_BTN.addEventListener('click', () => {
-    const promise = account.create(generateUUID(), EMAIL_INPUT.value, PASSWORD_INPUT.value, NAME_INPUT.value)
+    const promise = account.create(generateUUID(), EMAIL_INPUT.value, PASSWORD_INPUT.value, NAME_INPUT.value);
     promise.then(async (response) => {
         SIGN_IN_PAGE_IFRAME.style.display = "none";
         EXCALI_DRAW_IFRAME.style.display = "flex";
