@@ -1,3 +1,4 @@
+![Frame 9](https://github.com/Srinivasan-Akash/Dev-Dash-Extension/assets/108281031/d9ae4a8f-aabf-4d29-9b16-85103102a915)
 # Team Members Info
 
 | Names | HashNode ID | Gmail |
@@ -174,9 +175,7 @@ These features aim to improve developer productivity and provide a more enjoyabl
 8. src ---&gt; Source Code for displaying frontend
     
 9. static ---&gt; All the html, css, js views
-    
-
-![](https://cdn.hashnode.com/res/hashnode/image/upload/v1685717185523/35e900b0-6cc0-4d30-afa6-0aee6fc022d6.png align="center")
+    <img width="274" alt="02 06 2023_20 15 55_REC" src="https://github.com/Srinivasan-Akash/Dev-Dash-Extension/assets/108281031/34d19299-3f73-45c6-860e-76de5cce6e67">
 
 # Public Code Repo:-
 
