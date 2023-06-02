@@ -9,7 +9,7 @@ const NAME_INPUT = document.querySelector(".excali .name");
 // client_appwrite
 function generateUUID() {
     const min = 1000;
-    const max = 9999999999999999n;
+    const max = 9999999999999999;
     const randomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
     const uuid = randomNumber.toString().padStart(4, '0');
     return uuid;
